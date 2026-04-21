@@ -1,0 +1,110 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+    "type": "file",
+    "source": "~/.config/fastfetch/ascii/blastoise.txt",
+    "padding": {
+      "top": 2,
+      "left": 2
+    },
+    "color": {
+      "1": "cyan",
+      "2": "red",
+      "3": "yellow"
+    }
+  },
+  "display": {
+    "separator": "",
+    "color": {
+      "output": "white"
+    },
+    "key": {
+      "width": 0
+    }
+  },
+  "modules": [
+    "break",
+    {
+      "type": "custom",
+      "format": "{#34}╭─────────────────────────────╮"                                                                                
+    },                                                
+    {                               
+        "type": "title",
+        "key": "{#34}│{#green}  usr      ",                                                                                            
+        "format": "{1>16} {#34}│"
+    },                                                                                                                                  
+    {                                                 
+        "type": "title",
+        "key": "{#34}│{#green} 󰍹 host     ",                                                                                            
+        "format": "{2>16} {#34}│"
+    },                                                                                                                                  
+    {                                                 
+        "type": "custom",
+        "format": "{#34}├─────────────────────────────┤"                                                                                
+    },
+    {                                                                                                                                   
+        "type": "wm",                                 
+        "key": "{#34}│{#green}  wm       ",
+        "format": "       aerospace {#34}│"
+    },
+    {                                                                                                                                   
+        "type": "shell",
+        "key": "{#34}│{#green} 󰞷 sh       ",                                                                                           
+        "format": "{1>16} {#34}│"                     
+    },                              
+    {
+        "type": "terminal",                                                                                                             
+        "key": "{#34}│{#green}  term     ",
+        "format": "{1>16} {#34}│"                                                                                                       
+    },                                                
+    {
+        "type": "os",                                                                                                                   
+        "key": "{#34}│{#green}  os       ",
+        "format": "{2>16} {#34}│"                                                                                                       
+    },                                                
+    {
+        "type": "kernel",                                                                                                               
+        "key": "{#34}│{#green}  ker      ",
+        "format": "{release>16} {#34}│"                                                                                                 
+    },                                                
+    {                               
+        "type": "custom",
+        "format": "{#34}├─────────────────────────────┤"                                                                                
+    },
+    {                                                                                                                                   
+        "type": "uptime",                             
+        "key": "{#34}│{#green}  upt      ",
+        "format": "{1>16} {#34}│"   
+    },                                  
+    {                                                                                                                                   
+        "type": "packages",
+        "key": "{#34}│{#green} 󰏗 pkg      ",                                                                                           
+        "format": "{1>16} {#34}│"                     
+    },                                                                                                                                  
+    {                                                 
+        "type": "cpu",                  
+        "key": "{#34}│{#green}  cpu      ",
+        "format": "{1>16} {#34}│"
+    },                                                                                                                                  
+    {
+        "type": "gpu",                                                                                                                  
+        "key": "{#34}│{#green} 󰡀 gpu      ",         
+        "format": "{1>16} {#34}│"   
+    },
+    {                                                                                                                                   
+        "type": "memory",
+        "key": "{#34}│{#green} 󰘚 mem     ",                                                                                           
+        "format": "{1>7} / {2>7} {#34}│"              
+    },                              
+    {
+        "type": "custom",                                                                                                               
+        "format": "{#34}╰─────────────────────────────╯"
+    },                                                                                                                                  
+    "break",                                          
+    {
+        "type": "colors",                                                                                                               
+        "symbol": "circle"
+    },                                                                                                                                  
+    "break"
+  ]
+}
