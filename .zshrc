@@ -2,7 +2,7 @@ fastfetch
 
 # Env
 export ZSH="$HOME/.oh-my-zsh"
-export POSH_THEME="$HOME/.config/ohmyposh/zen-pond-custom.yaml"
+export POSH_THEME="$HOME/.config/ohmyposh/grove.yaml"
 
 # disabled omz prompt
 ZSH_THEME=""
