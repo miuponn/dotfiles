@@ -1,0 +1,16 @@
+themes {
+    grove {
+        fg "#e4ebe4"
+        bg "#13242a"
+
+        black "#13242a"
+        red "#e878a8"
+        green "#78b098"
+        yellow "#e8c888"
+        blue "#5090b0"
+        magenta "#a890c0"
+        cyan "#58b0b8"
+        white "#e4ebe4"
+        orange "#e89878"
+    }
+}

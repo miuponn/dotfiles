@@ -1,0 +1,21 @@
+layout {
+    tab name="dash" focus=true {
+        pane split_direction="horizontal" {
+            pane size="50%" split_direction="vertical" {
+                pane size="50%" name="btop" {
+                    command "btop"
+                }
+                pane size="50%" name="shell"
+            }
+            pane size="50%" split_direction="vertical" {
+                pane size="50%" name="files" {
+                    command "yazi"
+                }
+                pane size="50%" name="rain" {
+                    command "cmatrix"
+                    args "-b" "-s"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+default_shell "zsh"
+
+copy_on_select true
+copy_command "pbcopy"
+
+mouse_mode true
+
+simplified_ui true
+pane_frames false
+
+default_mode "normal"
+
+show_startup_tips false
+show_release_notes false
+
+session_serialization true
+pane_viewport_serialization true
+
+on_force_close "detach"
+
+support_kitty_keyboard_protocol true
+
+theme "grove"
+
+keybinds {
+    shared_except "locked" {
+        bind "Alt Shift h" { GoToPreviousTab; }
+        bind "Alt Shift l" { GoToNextTab; }
+
+        bind "Alt Shift 1" { GoToTab 1; }
+        bind "Alt Shift 2" { GoToTab 2; }
+        bind "Alt Shift 3" { GoToTab 3; }
+        bind "Alt Shift 4" { GoToTab 4; }
+        bind "Alt Shift 5" { GoToTab 5; }
+        bind "Alt Shift 6" { GoToTab 6; }
+        bind "Alt Shift 7" { GoToTab 7; }
+        bind "Alt Shift 8" { GoToTab 8; }
+        bind "Alt Shift 9" { GoToTab 9; }
+    }
+}
