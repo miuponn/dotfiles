@@ -35,3 +35,4 @@ vim.opt.scrolloff = 8
 vim.opt.wrap = false
 
 vim.opt.autoread = true
+vim.opt.completeopt = "menu,menuone,noselect,popup"
