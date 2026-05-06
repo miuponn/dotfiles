@@ -12,8 +12,8 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Shortcuts
-alias zp="vim ~/.zprofile"
-alias zrc="vim ~/.zshrc"
+alias zp="nvim ~/.zprofile"
+alias zrc="nvim ~/.zshrc"
 alias zreload="source ~/.zshrc"
 alias zeload="source ~/.zprofile"
 
@@ -24,11 +24,20 @@ alias cat='bat'
 # Auto-ls on dir change
 chpwd() { eza --icons }
 
-# Tool integrations
-source <(fzf --zsh)
-eval "$(zoxide init --cmd cd zsh)"
-
 # oh-my-posh prompt
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
     eval "$(oh-my-posh init zsh --config "$POSH_THEME")"
 fi
+
+# Zellij session launchers
+alias vibe='zellij attach vibe 2>/dev/null || zellij -l vibe -s vibe'
+alias code='zellij attach code 2>/dev/null || zellij -l code -s code'
+alias dash='zellij attach dash 2>/dev/null || zellij -l dash -s dash'
+
+alias lg='lazygit'
+
+export PATH=$PATH:/Users/kelly/.spicetify
+
+# Tool integrations
+source <(fzf --zsh)
+eval "$(zoxide init --cmd cd zsh)"
