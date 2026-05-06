@@ -17,8 +17,6 @@ vim.opt.list = true
 
 vim.opt.termguicolors = true
 
-vim.opt.clipboard = "unnamedplus"
-
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
@@ -40,7 +38,3 @@ vim.opt.scrolloff = 8
 vim.opt.wrap = false
 
 vim.opt.autoread = true
-
-
-
-
