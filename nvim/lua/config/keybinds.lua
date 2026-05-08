@@ -58,3 +58,14 @@ end, { expr = true, desc = "next completion or insert tab" })
 vim.keymap.set("i", "<S-Tab>", function()
   return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
 end, { expr = true, desc = "prev completion or shift-tab" })
+
+vim.keymap.set("i", "<CR>", function()
+  local npairs = require("nvim-autopairs")
+  if vim.fn.pumvisible() == 1 then
+    if vim.fn.complete_info({ "selected" }).selected ~= -1 then
+      return "<C-y>"
+    end
+    return "<C-e>" .. npairs.autopairs_cr()
+  end
+  return npairs.autopairs_cr()
+end, { expr = true, replace_keycodes = false, desc = "smart CR (accept completion or autopairs newline)" })
