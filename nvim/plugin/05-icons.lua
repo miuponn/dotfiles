@@ -1,3 +1,144 @@
 vim.pack.add({
-	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
+  { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+})
+
+local CODE = "#5090b0"      -- base0D blue (mirrors yazi source/config)
+local MEDIA = "#7887ba"     -- periwinkle (mirrors yazi media — off-palette but documented in grove.yaml extras)
+local ARCHIVE = "#78b098"   -- base0B mint (mirrors yazi archives)
+
+local code_exts = {
+  "🔥", "3mf", "a", "ada", "adb", "ads", "android", "apl", 
+  "app", "applescript", "asc", "asm", "ass", "astro", "awk", "azcli", 
+  "bak", "bash", "bat", "bazel", "bib", "bicep", "bicepparam", "bin", 
+  "blade.php", "blend", "bqn", "brep", "bzl", "c", "c++", "cache", 
+  "cast", "cbl", "cc", "ccm", "cfc", "cfg", "cfm", "cjs", 
+  "clj", "cljc", "cljd", "cljs", "cmake", "cob", "cobol", "coffee", 
+  "conda", "conf", "config.ru", "cow", "cp", "cpp", "cppm", "cpy", 
+  "cr", "crdownload", "cs", "csh", "cshtml", "cson", "csproj", "css", 
+  "csv", "cts", "cu", "cue", "cuh", "cxx", "cxxm", "d", 
+  "d.ts", "dart", "db", "dconf", "desktop", "diff", "dll", "doc", 
+  "Dockerfile", "dockerignore", "docx", "dot", "download", "drl", "dropbox", "dump", 
+  "dwg", "dxf", "ebook", "ebuild", "edn", "eex", "ejs", "el", 
+  "elc", "elf", "elm", "eln", "env", "eot", "epp", "erb", 
+  "erl", "ex", "exe", "exs", "f#", "f3d", "f90", "fbx", 
+  "fcbak", "fcmacro", "fcmat", "fcparam", "fcscript", "fcstd", "fcstd1", "fctb", 
+  "fctl", "fdmdownload", "feature", "fish", "flc", "flf", "fnl", "fodg", 
+  "fodp", "fods", "fodt", "frag", "fs", "fsi", "fsscript", "fsx", 
+  "gcode", "gd", "gemspec", "geom", "git", "glb", "gleam", "glsl", 
+  "gnumakefile", "go", "godot", "gpr", "gql", "gradle", "graphql", "gresource", 
+  "gv", "h", "haml", "hbs", "heex", "hex", "hh", "hpp", 
+  "hrl", "hs", "htm", "html", "http", "huff", "hurl", "hx", 
+  "hxx", "ical", "icalendar", "ics", "ifb", "ifc", "ige", "iges", 
+  "igs", "image", "img", "import", "info", "ini", "ino", "ipynb", 
+  "ixx", "java", "jl", "js", "json", "json5", "jsonc", "jsx", 
+  "jwmrc", "kbx", "kdb", "kdbx", "kdenlive", "kdenlivetitle", "kicad_dru", "kicad_mod", 
+  "kicad_pcb", "kicad_prl", "kicad_pro", "kicad_sch", "kicad_sym", "kicad_wks", "ko", "kpp", 
+  "kra", "krz", "ksh", "kt", "kts", "lck", "leex", "less", 
+  "lff", "lhs", "lib", "license", "liquid", "lock", "log", "lrc", 
+  "lua", "luac", "luau", "m", "magnet", "makefile", "markdown", "material", 
+  "md", "md5", "mdx", "mint", "mjs", "mk", "ml", "mli", 
+  "mm", "mo", "mobi", "mojo", "mpp", "msf", "mustache", "nfo", 
+  "nim", "nix", "norg", "nswag", "nu", "o", "obj", "odf", 
+  "odg", "odin", "odp", "ods", "odt", "ogx", "org", "otf", 
+  "out", "part", "patch", "pck", "pdf", "php", "pl", "pls", 
+  "ply", "pm", "po", "pot", "pp", "ppt", "pptx", "prisma", 
+  "pro", "ps1", "psb", "psd1", "psm1", "pub", "pxd", "pxi", 
+  "py", "pyc", "pyd", "pyi", "pyo", "pyw", "pyx", "qm", 
+  "qml", "qrc", "qss", "query", "r", "R", "rake", "rasi", 
+  "razor", "rb", "res", "resi", "rlib", "rmd", "rproj", "rs", 
+  "rss", "s", "sass", "sbt", "sc", "scad", "scala", "scm", 
+  "scss", "sh", "sha1", "sha224", "sha256", "sha384", "sha512", "sig", 
+  "signature", "skp", "sldasm", "sldprt", "slim", "sln", "slnx", "slvs", 
+  "sml", "so", "sol", "spec.js", "spec.jsx", "spec.ts", "spec.tsx", "sql", 
+  "sqlite", "sqlite3", "srt", "ssa", "ste", "step", "stl", "stories.js", 
+  "stories.jsx", "stories.mjs", "stories.svelte", "stories.ts", "stories.tsx", "stories.vue", "stp", "strings", 
+  "styl", "sub", "sublime", "suo", "sv", "svelte", "svh", "swift", 
+  "t", "tbc", "tcl", "templ", "terminal", "test.js", "test.jsx", "test.ts", 
+  "test.tsx", "tex", "tf", "tfvars", "tmpl", "tmux", "toml", "torrent", 
+  "tres", "ts", "tscn", "tsconfig", "tsx", "ttf", "twig", "txt", 
+  "typ", "typoscript", "ui", "v", "vala", "vert", "vh", "vhd", 
+  "vhdl", "vi", "vim", "vsh", "vsix", "vue", "wasm", "webmanifest", 
+  "webpack", "woff", "woff2", "wrl", "wrz", "wvc", "x", "xaml", 
+  "xcplayground", "xcstrings", "xls", "xlsx", "xm", "xml", "xslt", "xul", 
+  "yaml", "yml", "zig", "zsh", 
+}
+
+local media_exts = {
+  "3gp", "aac", "ai", "aif", "aiff", "ape", "avif", "blp", 
+  "bmp", "flac", "gif", "ico", "jpeg", "jpg", "jxl", "m3u", 
+  "m3u8", "m4a", "m4v", "mkv", "mov", "mp3", "mp4", "mts", 
+  "oga", "ogg", "ogv", "opus", "pcm", "png", "psd", "spx", 
+  "svg", "svgz", "wav", "webm", "webp", "wma", "wmv", "wv", 
+  "xcf", 
+}
+
+local archive_exts = {
+  "7z", "apk", "bz", "bz2", "bz3", "epub", "gz", "iso", 
+  "jar", "rar", "tgz", "txz", "xpi", "xz", "zip", "zst", 
+  
+}
+
+local code_files = {
+  "_gvimrc", "_vimrc", ".babelrc", ".bash_profile", ".bashrc", ".clang-format", ".clang-tidy", ".codespellrc", 
+  ".condarc", ".dockerignore", ".ds_store", ".editorconfig", ".env", ".eslintignore", ".eslintrc", ".git-blame-ignore-revs", 
+  ".gitattributes", ".gitconfig", ".gitignore", ".gitlab-ci.yml", ".gitmodules", ".gtkrc-2.0", ".gvimrc", ".justfile", 
+  ".luacheckrc", ".luaurc", ".mailmap", ".nanorc", ".npmignore", ".npmrc", ".nuxtrc", ".nvmrc", 
+  ".pnpmfile.cjs", ".pre-commit-config.yaml", ".prettierignore", ".prettierrc", ".prettierrc.cjs", ".prettierrc.js", ".prettierrc.json", ".prettierrc.json5", 
+  ".prettierrc.mjs", ".prettierrc.toml", ".prettierrc.yaml", ".prettierrc.yml", ".pylintrc", ".settings.json", ".SRCINFO", ".vimrc", 
+  ".Xauthority", ".xinitrc", ".Xresources", ".xsession", ".zprofile", ".zshenv", ".zshrc", "AUTHORS", 
+  "AUTHORS.txt", "brewfile", "bspwmrc", "build", "build.gradle", "build.zig.zon", "bun.lock", "bun.lockb", 
+  "cantorrc", "checkhealth", "cmakelists.txt", "code_of_conduct", "code_of_conduct.md", "commit_editmsg", "commitlint.config.js", "commitlint.config.ts", 
+  "compose.yaml", "compose.yml", "config", "containerfile", "copying", "copying.lesser", "Directory.Build.props", "Directory.Build.targets", 
+  "Directory.Packages.props", "docker-compose.yaml", "docker-compose.yml", "dockerfile", "eslint.config.cjs", "eslint.config.js", "eslint.config.mjs", "eslint.config.ts", 
+  "ext_typoscript_setup.txt", "favicon.ico", "fp-info-cache", "fp-lib-table", "FreeCAD.conf", "Gemfile", "gnumakefile", "go.mod", 
+  "go.sum", "go.work", "gradle-wrapper.properties", "gradle.properties", "gradlew", "groovy", "gruntfile.babel.js", "gruntfile.coffee", 
+  "gruntfile.js", "gruntfile.ts", "gtkrc", "gulpfile.babel.js", "gulpfile.coffee", "gulpfile.js", "gulpfile.ts", "hypridle.conf", 
+  "hyprland.conf", "hyprlandd.conf", "hyprlock.conf", "hyprpaper.conf", "hyprsunset.conf", "i18n.config.js", "i18n.config.ts", "i3blocks.conf", 
+  "i3status.conf", "index.theme", "ionic.config.json", "Jenkinsfile", "justfile", "kalgebrarc", "kdeglobals", "kdenlive-layoutsrc", 
+  "kdenliverc", "kritadisplayrc", "kritarc", "license", "license.md", "lxde-rc.xml", "lxqt.conf", "makefile", 
+  "mix.lock", "mpv.conf", "next.config.cjs", "next.config.js", "next.config.ts", "node_modules", "nuxt.config.cjs", "nuxt.config.js", 
+  "nuxt.config.mjs", "nuxt.config.ts", "package-lock.json", "package.json", "PKGBUILD", "platformio.ini", "playwright.config.cjs", "playwright.config.cts", 
+  "playwright.config.js", "playwright.config.mjs", "playwright.config.mts", "playwright.config.ts", "pnpm-lock.yaml", "pnpm-workspace.yaml", "pom.xml", "prettier.config.cjs", 
+  "prettier.config.js", "prettier.config.mjs", "prettier.config.ts", "prisma.config.mts", "prisma.config.ts", "procfile", "PrusaSlicer.ini", "PrusaSlicerGcodeViewer.ini", 
+  "py.typed", "QtProject.conf", "rakefile", "readme", "readme.md", "rmd", "robots.txt", "security", 
+  "security.md", "settings.gradle", "svelte.config.js", "sxhkdrc", "sym-lib-table", "tailwind.config.js", "tailwind.config.mjs", "tailwind.config.ts", 
+  "tmux.conf", "tmux.conf.local", "tsconfig.json", "unlicense", "vagrantfile", "vercel.json", "vite.config.cjs", "vite.config.cts", 
+  "vite.config.js", "vite.config.mjs", "vite.config.mts", "vite.config.ts", "vitest.config.cjs", "vitest.config.cts", "vitest.config.js", "vitest.config.mjs", 
+  "vitest.config.mts", "vitest.config.ts", "vlcrc", "webpack", "weston.ini", "workspace", "wrangler.jsonc", "wrangler.toml", 
+  "xdph.conf", "xmobarrc", "xmobarrc.hs", "xmonad.hs", "xorg.conf", "xsettingsd.conf", 
+}
+
+local ext_defaults = require("nvim-web-devicons.default.icons_by_file_extension")
+local file_defaults = require("nvim-web-devicons.default.icons_by_filename")
+
+local function build(list, defaults, color)
+  local out = {}
+  for _, name in ipairs(list) do
+    local d = defaults[name]
+    if d then
+      out[name] = { icon = d.icon, color = color, cterm_color = d.cterm_color, name = d.name }
+    else
+      out[name] = {
+        icon = "",
+        color = color,
+        name = (name:gsub("[^%w]", ""):gsub("^%l", string.upper)) .. "Generic",
+      }
+    end
+  end
+  return out
+end
+
+local override_by_extension = vim.tbl_extend("force",
+  build(code_exts, ext_defaults, CODE),
+  build(media_exts, ext_defaults, MEDIA),
+  build(archive_exts, ext_defaults, ARCHIVE)
+)
+
+local override_by_filename = build(code_files, file_defaults, CODE)
+
+require("nvim-web-devicons").setup({
+  default = true,
+  strict = true,
+  override_by_extension = override_by_extension,
+  override_by_filename = override_by_filename,
 })
