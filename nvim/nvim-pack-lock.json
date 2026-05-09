@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "alpha-nvim": {
+      "rev": "6c6a89d5b068b5251c8bdf0dd57bb921bcfeeb09",
+      "src": "https://github.com/goolord/alpha-nvim"
+    },
     "base16-nvim": {
       "rev": "17781884af64e4205f84dde41d6030a61d0eb0dc",
       "src": "https://github.com/RRethy/base16-nvim"
