@@ -33,8 +33,12 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "yank to system clip
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "yank line to system clipboard" })
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without yanking" })
 
-vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, { desc = "next diagnostic" })
-vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, { desc = "prev diagnostic" })
+vim.keymap.set("n", "]d", function()
+	vim.diagnostic.jump({ count = 1 })
+end, { desc = "next diagnostic" })
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.jump({ count = -1 })
+end, { desc = "prev diagnostic" })
 vim.keymap.set("n", "<leader>xd", vim.diagnostic.open_float, { desc = "diagnostic float" })
 vim.keymap.set("n", "<leader>xq", vim.diagnostic.setloclist, { desc = "diagnostics to loclist" })
 
@@ -43,29 +47,32 @@ vim.keymap.set("n", "<leader>q", "<cmd>quit<CR>", { desc = "quit window" })
 vim.keymap.set("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "force quit all" })
 
 vim.keymap.set("n", "<leader>cr", function()
-  vim.cmd("checktime")
-  pcall(vim.cmd, "DiffviewOpen")
+	vim.cmd("checktime")
+	pcall(vim.cmd, "DiffviewOpen")
 end, { desc = "claude return (reload + diffview)" })
 
 vim.keymap.set("n", "<leader>th", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
 end, { desc = "toggle inlay hints" })
 
 vim.keymap.set("i", "<Tab>", function()
-  return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+	return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
 end, { expr = true, desc = "next completion or insert tab" })
 
 vim.keymap.set("i", "<S-Tab>", function()
-  return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+	return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
 end, { expr = true, desc = "prev completion or shift-tab" })
 
+local CY = vim.keycode("<C-y>")
+local CE = vim.keycode("<C-e>")
+
 vim.keymap.set("i", "<CR>", function()
-  local npairs = require("nvim-autopairs")
-  if vim.fn.pumvisible() == 1 then
-    if vim.fn.complete_info({ "selected" }).selected ~= -1 then
-      return "<C-y>"
-    end
-    return "<C-e>" .. npairs.autopairs_cr()
-  end
-  return npairs.autopairs_cr()
+	local npairs = require("nvim-autopairs")
+	if vim.fn.pumvisible() == 1 then
+		if vim.fn.complete_info({ "selected" }).selected ~= -1 then
+			return CY
+		end
+		return CE .. npairs.autopairs_cr()
+	end
+	return npairs.autopairs_cr()
 end, { expr = true, replace_keycodes = false, desc = "smart CR (accept completion or autopairs newline)" })

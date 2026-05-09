@@ -45,7 +45,7 @@ dashboard.section.buttons.val = {
 	dashboard.button("o", "󰋚  Recent files", "<cmd>Telescope oldfiles<CR>"),
 	dashboard.button("g", "󰱼  Grep codebase", "<cmd>Telescope live_grep<CR>"),
 	dashboard.button("e", "󰈔  New buffer", "<cmd>ene<CR>"),
-	dashboard.button("c", "  Edit nvim config", "<cmd>e ~/.config/nvim/init.lua<CR>"),
+	dashboard.button("c", "  Edit nvim config", "<cmd>e ~/.config/nvim<CR>"),
 	dashboard.button("q", "󰗼  Quit", "<cmd>qa<CR>"),
 }
 dashboard.section.buttons.opts.hl = "AlphaButtons"
@@ -72,7 +72,7 @@ dashboard.config.layout = {
 	dashboard.section.buttons,
 	{ type = "padding", val = 1 },
 	fortune_section,
-	{ type = "padding", val = 3 },
+	{ type = "padding", val = 2 },
 	dashboard.section.footer,
 }
 
