@@ -26,16 +26,20 @@ exec-on-workspace-change = ['/bin/bash', '-c',
 preset = 'qwerty'
 
 [gaps]
-inner.horizontal = 4
-inner.vertical = 4
-outer.left = 4
-outer.bottom = 4
-outer.top = [
-    { monitor."built-in" = 32 },
-    { monitor."viotek" = 60 },
-    32
+inner.horizontal = 8
+inner.vertical = 8
+outer.left = 16
+outer.bottom = [
+    { monitor."built-in" = 10 },
+    { monitor."viotek" = 14 },
+    10
 ]
-outer.right = 4
+outer.top = [
+    { monitor."built-in" = 34 },
+    { monitor."viotek" = 64 },
+    34
+]
+outer.right = 16
 
 [workspace-to-monitor-force-assignment]
 code = ['secondary', 'main']
