@@ -15,19 +15,20 @@ local grove = {
 	dark = "#1b2f34",
 	elevated = "#263d42",
 	muted = "#5a7880",
+	dim = "#8098a0",
 	fg = "#e4ebe4",
 }
 
 local pills = {
 	normal = {
-		a = { fg = grove.dark, bg = grove.blue },
+		a = { fg = grove.dark, bg = grove.teal, bold = true },
 		b = { fg = grove.fg, bg = grove.dark },
 		c = { fg = grove.muted },
 	},
-	insert = { a = { fg = grove.dark, bg = grove.green } },
-	visual = { a = { fg = grove.dark, bg = grove.lavender } },
-	replace = { a = { fg = grove.dark, bg = grove.orange } },
-	command = { a = { fg = grove.dark, bg = grove.yellow } },
+	insert = { a = { fg = grove.dark, bg = grove.green, bold = true } },
+	visual = { a = { fg = grove.dark, bg = grove.lavender, bold = true } },
+	replace = { a = { fg = grove.dark, bg = grove.orange, bold = true } },
+	command = { a = { fg = grove.dark, bg = grove.yellow, bold = true } },
 	inactive = {
 		a = { fg = grove.muted, bg = grove.elevated },
 		b = { fg = grove.muted, bg = grove.elevated },
@@ -52,7 +53,7 @@ require("lualine").setup({
 		theme = pills,
 		icons_enabled = true,
 		component_separators = "",
-		section_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
 		globalstatus = true,
 		disabled_filetypes = {
 			statusline = { "trouble", "oil", "dashboard" },
@@ -62,14 +63,14 @@ require("lualine").setup({
 		lualine_a = {
 			{
 				"mode",
-				separator = { left = "" },
-				padding = { left = 0, right = 1 },
+				separator = { left = "", right = "" },
+				padding = { left = 1, right = 1 },
 			},
 		},
 		lualine_b = {
 			"branch",
 			"diff",
-			{ "diagnostics", sources = { "nvim_diagnostic" }, separator = { right = "" } },
+			{ "diagnostics", sources = { "nvim_diagnostic" }, separator = { right = "" } },
 		},
 		lualine_c = {
 			{ "filename", path = 1 },
@@ -88,10 +89,10 @@ require("lualine").setup({
 			"filetype",
 		},
 		lualine_y = {
-			{ "progress", separator = { left = "" } },
+			{ "progress", separator = { left = "" } },
 		},
 		lualine_z = {
-			{ "location", separator = { right = "" }, padding = { left = 0, right = 0 } },
+			{ "location", separator = { left = "", right = "" }, padding = { left = 0, right = 1 } },
 			{
 				function()
 					return " "

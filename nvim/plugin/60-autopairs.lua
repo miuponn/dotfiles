@@ -3,6 +3,7 @@ vim.pack.add({
 })
 
 require("nvim-autopairs").setup({
+  map_cr = false,
   check_ts = true,
   ts_config = {
     lua = { "string" },

@@ -36,3 +36,4 @@ vim.opt.wrap = false
 
 vim.opt.autoread = true
 vim.opt.completeopt = "menu,menuone,noselect,popup"
+vim.opt.pumborder = "rounded"
