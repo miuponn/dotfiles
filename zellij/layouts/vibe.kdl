@@ -5,16 +5,24 @@ layout {
             plugin location="compact-bar"
         }
     }
-
-    tab name="edit" focus=true {
-        pane command="nvim"
+    tab name="vibe" focus=true {
+        pane split_direction="vertical" {
+            pane size="60%" name="nvim" close_on_exit=true {
+                command "zsh"
+                args "-i" "-c" "nvim; exec zsh -i"
+            }
+            pane size="40%" split_direction="horizontal" {
+                pane size="70%" name="claude" {
+                    command "claude"
+                }
+                pane size="30%" name="shell"
+            }
+        }
     }
-
-    tab name="claude" {
-        pane command="claude"
-    }
-
-    tab name="shell" {
-        pane
+    tab name="ref" {
+        pane split_direction="vertical" {
+            pane size="60%" name="shell"
+            pane size="40%" name="shell"
+        }
     }
 }

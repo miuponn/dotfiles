@@ -1,12 +1,13 @@
 layout {
     tab name="code" focus=true {
         pane split_direction="vertical" {
-            pane size="55%" name="claude" {
-                command "claude"
+            pane size="55%" name="editor" close_on_exit=true {
+                command "zsh"
+                args "-i" "-c" "nvim; exec zsh -i"
             }
             pane size="45%" split_direction="horizontal" {
-                pane size="70%" name="editor" {
-                    command "nvim"
+                pane size="70%" name="claude" {
+                    command "claude"
                 }
                 pane size="30%" split_direction="vertical" {
                     pane size="60%" name="shell"
@@ -14,6 +15,17 @@ layout {
                         command "yazi"
                     }
                 }
+            }
+        }
+    }
+    tab name="git" {
+        pane split_direction="vertical" {
+            pane size="70%" name="lazygit"
+            pane size="30%" split_direction="horizontal" {
+                pane size="50%" name="claude" {
+                    command "claude"
+                }
+                pane size="50%" name="shell"
             }
         }
     }

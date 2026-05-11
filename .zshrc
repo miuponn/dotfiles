@@ -33,6 +33,7 @@ fi
 alias vibe='zellij attach vibe 2>/dev/null || zellij -l vibe -s vibe'
 alias code='zellij attach code 2>/dev/null || zellij -l code -s code'
 alias dash='zellij attach dash 2>/dev/null || zellij -l dash -s dash'
+alias zs='zellij list-sessions'
 
 alias lg='lazygit'
 

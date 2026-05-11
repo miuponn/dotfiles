@@ -7,17 +7,29 @@ local dashboard = require("alpha.themes.dashboard")
 local fortune = require("alpha.fortune")
 
 local grove_palette = {
-	teal = "#58b0b8",
-	blue = "#5090b0",
-	lavender = "#a890c0",
-	green = "#78b098",
-	yellow = "#e8c888",
-	orange = "#e89878",
-	pink = "#e878a8",
+	base = {
+		bg = "#13242a",
+		surface = "#1b2f34",
+		overlay = "#263d42",
+		muted = "#5a7880",
+		subtle = "#8098a0",
+		white = "#e4ebe4",
+		brighter = "#eef4ec",
+		brightest = "#f6faf4",
+	},
+	accent = {
+		pink = "#e878a8",
+		orange = "#e89878",
+		yellow = "#e8c888",
+		green = "#78b098",
+		teal = "#58b0b8",
+		blue = "#5090b0",
+		lavender = "#a890c0",
+	},
 }
 
 local function random_grove_colour(palette)
-	palette = palette or grove_palette
+	palette = palette or grove_palette.accent
 	local keys = vim.tbl_keys(palette)
 	return palette[keys[math.random(#keys)]]
 end
@@ -78,10 +90,9 @@ dashboard.config.layout = {
 
 alpha.setup(dashboard.config)
 
-vim.api.nvim_set_hl(0, "AlphaHeader", { fg = "#58b0b8" })
-vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#e4ebe4" })
+vim.api.nvim_set_hl(0, "AlphaButtons", { fg = grove_palette.base.white })
 randomize_hl("AlphaQuote")
-vim.api.nvim_set_hl(0, "AlphaFooter", { fg = "#5090b0", italic = true })
+vim.api.nvim_set_hl(0, "AlphaFooter", { fg = grove_palette.accent.blue, italic = true })
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "alpha",
