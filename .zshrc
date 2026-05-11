@@ -37,7 +37,18 @@ alias zs='zellij list-sessions'
 
 alias lg='lazygit'
 
+export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:/Users/kelly/.spicetify
+
+# lsp-doctor after every brew batch
+brew() {
+  command brew "$@"
+  local rc=$?
+  case "$1" in
+    install|upgrade|uninstall|reinstall) lsp-doctor ;;
+  esac
+  return $rc
+}
 
 # Tool integrations
 source <(fzf --zsh)

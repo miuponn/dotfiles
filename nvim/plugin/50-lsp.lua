@@ -1,27 +1,5 @@
 vim.pack.add({
   { src = "https://github.com/neovim/nvim-lspconfig" },
-  { src = "https://github.com/mason-org/mason.nvim" },
-  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-})
-
-require("mason").setup({
-  ui = {
-    border = "rounded",
-    icons = {
-      package_installed = "✓",
-      package_pending = "➜",
-      package_uninstalled = "✗",
-    },
-  },
-})
-
-require("mason-lspconfig").setup({
-  ensure_installed = {
-    "ts_ls", "eslint", "tailwindcss", "cssls",
-    "html", "jsonls", "emmet_language_server", "lua_ls",
-    "basedpyright", "ruff",
-  },
-  automatic_enable = true,
 })
 
 vim.lsp.config("*", {
@@ -44,12 +22,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     if client:supports_method("textDocument/codeLens") then
-      vim.lsp.codelens.refresh({ bufnr = bufnr })
-      vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "CursorHold" }, {
-        buffer = bufnr,
-        group = vim.api.nvim_create_augroup("lsp_codelens_" .. bufnr, { clear = true }),
-        callback = function() vim.lsp.codelens.refresh({ bufnr = bufnr }) end,
-      })
+      vim.lsp.codelens.enable(true, { bufnr = bufnr })
     end
 
     local function map(mode, lhs, rhs, desc)
@@ -99,4 +72,5 @@ vim.lsp.enable({
   "html", "jsonls", "emmet_language_server", "lua_ls",
   "basedpyright", "ruff",
   "rust_analyzer",
+  "gopls",
 })
