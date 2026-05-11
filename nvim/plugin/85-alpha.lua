@@ -2,6 +2,7 @@ vim.pack.add({
 	{ src = "https://github.com/goolord/alpha-nvim" },
 })
 
+math.randomseed(os.time())
 local alpha = require("alpha")
 local dashboard = require("alpha.themes.dashboard")
 local fortune = require("alpha.fortune")
@@ -90,10 +91,10 @@ dashboard.config.layout = {
 
 alpha.setup(dashboard.config)
 
+randomize_hl("AlphaHeader")
 vim.api.nvim_set_hl(0, "AlphaButtons", { fg = grove_palette.base.white })
 randomize_hl("AlphaQuote")
 vim.api.nvim_set_hl(0, "AlphaFooter", { fg = grove_palette.accent.blue, italic = true })
-
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "alpha",
 	callback = function()
