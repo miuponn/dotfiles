@@ -3,7 +3,7 @@
 
 <p align="center">⋆｡˚ ✦ ˚｡⋆</p>
 
-<h2 align="center">snorlax</h2>
+<h3 align="center">snorlax 💤 </h2>
 <h6 align="center"><i>sleepy green rice...</i></h6>
 
 <!-- <p align="center">
@@ -12,15 +12,13 @@
   </a>
 </p> -->
 
-<h3 align="center">macos</h3>
+<h4 align="center">macos</h3>
 <!-- tools, screenshots, notes -->
 
-<h3 align="center">linux</h3>
+<h4 align="center">linux</h3>
 <!-- someday -->
 
-<h3 align="center">windows</h3>
+<h4 align="center">windows</h3>
 <!-- someday -->
 
 <p align="center">⋆｡˚ ✦ ˚｡⋆</p>
-
-<h6 align="center">shell configs at repo root, tool configs symlink into <code>~/.config</code></h6>
