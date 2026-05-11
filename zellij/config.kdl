@@ -24,6 +24,8 @@ support_kitty_keyboard_protocol true
 theme "grove"
 
 keybinds {
+    unbind "Ctrl o"
+
     shared_except "locked" {
         bind "Alt Shift h" { GoToPreviousTab; }
         bind "Alt Shift l" { GoToNextTab; }
@@ -37,5 +39,7 @@ keybinds {
         bind "Alt Shift 7" { GoToTab 7; }
         bind "Alt Shift 8" { GoToTab 8; }
         bind "Alt Shift 9" { GoToTab 9; }
+
+        bind "Alt o" { SwitchToMode "Session"; }
     }
 }
