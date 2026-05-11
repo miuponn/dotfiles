@@ -10,6 +10,7 @@ require("fyler").setup({
       confirm_simple = true,
       follow_current_file = true,
       close_on_select = false,
+      indentscope = { enabled = false },
       win = {
         kind = "split_left_most",
         kinds = {
