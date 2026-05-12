@@ -1,7 +1,5 @@
 #!/bin/bash
 
-CLOCK=$'\xEF\x80\x97'
-
 sketchybar --add item clock right \
   --set clock \
     icon="$CLOCK" \
@@ -12,6 +10,6 @@ sketchybar --add item clock right \
     label.color=$GROVE_FG \
     label.padding_left=0 \
     label.padding_right=10 \
-    update_freq=10 \
+    update_freq=60 \
     script="$PLUGIN_DIR/clock.sh" \
     background.drawing=off

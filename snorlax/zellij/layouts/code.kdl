@@ -1,16 +1,22 @@
 layout {
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            plugin location="compact-bar"
+        }
+    }
     tab name="code" focus=true {
         pane split_direction="horizontal" {
             pane size="75%" name="editor" split_direction="vertical" {
-                pane size="80%" name="nvim" close_on_exit=true {
+                pane size="80%" name="nvim" {
                     command "zsh"
-                    args "-i" "-c" "nvim; exec zsh -i"
+                    args "-c" "nvim; exec zsh -i"
                 }
                 pane size="20%" name="shell"
             }
-            pane size="25%" name="claude" close_on_exit=true {
+            pane size="25%" name="claude" {
                 command "zsh"
-                args "-i" "-c" "claude; exec zsh -i"
+                args "-c" "claude; exec zsh -i"
             }
         }
     }
@@ -19,7 +25,8 @@ layout {
             pane size="70%" name="lazygit"
             pane size="30%" split_direction="horizontal" {
                 pane size="50%" name="claude" {
-                    command "claude"
+                    command "zsh"
+                    args "-c" "claude; exec zsh -i"
                 }
                 pane size="50%" name="shell"
             }

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-APPLE=$'\xEF\x85\xB9'
-
 sketchybar --add item apple left \
   --set apple \
     icon="$APPLE" \

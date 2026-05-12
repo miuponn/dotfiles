@@ -1,9 +1,7 @@
 #!/bin/bash
 
 source "$CONFIG_DIR/colors.sh"
-
-PLAY=$'\xEF\x81\x8B'
-PAUSE=$'\xEF\x81\x8C'
+source "$CONFIG_DIR/helpers/glyphs.sh"
 
 if ! command -v nowplaying-cli >/dev/null 2>&1; then
   sketchybar --set "$NAME" drawing=off

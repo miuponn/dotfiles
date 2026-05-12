@@ -43,7 +43,7 @@ vim.keymap.set("n", "<leader>xd", vim.diagnostic.open_float, { desc = "diagnosti
 vim.keymap.set("n", "<leader>xq", vim.diagnostic.setloclist, { desc = "diagnostics to loclist" })
 
 vim.keymap.set("n", "<leader>w", "<cmd>write<CR>", { desc = "write buffer" })
-vim.keymap.set("n", "<leader>q", "<cmd>quit<CR>", { desc = "quit window" })
+vim.keymap.set("n", "<leader>qq", "<cmd>quit<CR>", { desc = "quit window" })
 vim.keymap.set("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "force quit all" })
 
 vim.keymap.set("n", "<leader>cr", function()

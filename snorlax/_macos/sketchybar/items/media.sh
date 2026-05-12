@@ -1,8 +1,5 @@
 #!/bin/bash
 
-MUSIC=$'\xEF\x80\x81'
-SPOTIFY=$'\xEF\x86\xBC'
-
 sketchybar --add item media left \
   --set media \
     icon="$MUSIC" \
@@ -24,7 +21,7 @@ sketchybar --add item media left \
     popup.blur_radius=20 \
     script="$PLUGIN_DIR/media.sh" \
     click_script="sketchybar --animate $ANIM_CURVE $ANIM_DURATION --set media popup.drawing=toggle" \
-    update_freq=5 \
+    update_freq=30 \
   --subscribe media media_change system_woke
 
 sketchybar --add item media.spotify popup.media \

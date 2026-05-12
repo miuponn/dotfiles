@@ -7,7 +7,7 @@ local MEDIA = "#7887ba"     -- periwinkle (mirrors yazi media — off-palette bu
 local ARCHIVE = "#78b098"   -- base0B mint (mirrors yazi archives)
 
 local code_exts = {
-  "🔥", "3mf", "a", "ada", "adb", "ads", "android", "apl", 
+  "🔥", "3mf", "a", "ada", "adb", "ads", "android", "apl",
   "app", "applescript", "asc", "asm", "ass", "astro", "awk", "azcli", 
   "bak", "bash", "bat", "bazel", "bib", "bicep", "bicepparam", "bin", 
   "blade.php", "blend", "bqn", "brep", "bzl", "c", "c++", "cache", 

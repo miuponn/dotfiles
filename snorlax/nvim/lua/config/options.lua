@@ -6,11 +6,8 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
-vim.opt.autoindent = true
 
 vim.opt.mouse = "a"
-
-vim.opt.cmdheight = 1
 vim.opt.showmode = false
 
 vim.opt.list = true
@@ -34,6 +31,5 @@ vim.opt.signcolumn = "yes"
 vim.opt.scrolloff = 8
 vim.opt.wrap = false
 
-vim.opt.autoread = true
 vim.opt.completeopt = "menu,menuone,noselect,popup"
 vim.opt.pumborder = "rounded"

@@ -6,6 +6,7 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 ITEM_DIR="$CONFIG_DIR/items"
 
 source "$CONFIG_DIR/colors.sh"
+source "$CONFIG_DIR/helpers/glyphs.sh"
 
 sketchybar --bar \
   position=top \

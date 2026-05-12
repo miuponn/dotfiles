@@ -1,12 +1,10 @@
 #!/bin/bash
 
 source "$CONFIG_DIR/colors.sh"
+source "$CONFIG_DIR/helpers/glyphs.sh"
 
-BT_ON=$'\xEF\x8A\x93'
-BT_OFF=$'\xEF\x8A\x94'
-
-POWER=$(defaults read /Library/Preferences/com.apple.Bluetooth.plist ControllerPowerState 2>/dev/null)
-CONNECTED=$(system_profiler SPBluetoothDataType 2>/dev/null | awk '/Connected: Yes/{print NR; exit}')
+POWER=$(blueutil --power 2>/dev/null)
+CONNECTED=$(blueutil --connected 2>/dev/null)
 
 if [ "$POWER" != "1" ]; then
   ICON="$BT_OFF"

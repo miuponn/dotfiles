@@ -35,10 +35,6 @@ for i in "${!SPACE_LIST[@]}"; do
       click_script="aerospace workspace $sid" \
       script="$PLUGIN_DIR/space_windows.sh" \
     --subscribe space.$sid \
-      aerospace_workspace_change \
-      front_app_switched \
-      window_detected \
-      system_woke \
       mouse.entered \
       mouse.exited
 
@@ -53,3 +49,13 @@ for i in "${!SPACE_LIST[@]}"; do
       background.drawing=off \
       background.height=24
 done
+
+sketchybar --add item space_dispatcher left \
+  --set space_dispatcher \
+    drawing=off \
+    script="$PLUGIN_DIR/space_dispatcher.sh" \
+  --subscribe space_dispatcher \
+    aerospace_workspace_change \
+    front_app_switched \
+    window_detected \
+    system_woke

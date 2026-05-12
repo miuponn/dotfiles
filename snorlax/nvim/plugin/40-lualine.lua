@@ -2,23 +2,12 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 })
 
+local p = require("grove.palette")
 local grove = {
-	pink = "#e878a8",
-	orange = "#e89878",
-	yellow = "#e8c888",
-	mint = "#78b098",
-	lime = "#91b846",
-	lime_bright = "#9bc73b",
-	teal = "#58b0b8",
-	blue = "#5090b0",
-	lavender = "#a890c0",
-	olive = "#78786a",
-	periwinkle = "#7887ba",
-	dark = "#1b2f34",
-	elevated = "#263d42",
-	muted = "#5a7880",
-	dim = "#8098a0",
-	fg = "#e4ebe4",
+	pink = p.base08, orange = p.base09, yellow = p.base0A, mint = p.base0B,
+	lime = p.lime, lime_bright = p.lime_bright,
+	teal = p.base0C, blue = p.base0D, lavender = p.base0E, olive = p.base0F, periwinkle = p.periwinkle,
+	dark = p.base01, elevated = p.base02, muted = p.base03, dim = p.base04, fg = p.base05,
 }
 
 local pills = {

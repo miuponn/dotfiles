@@ -7,13 +7,14 @@ layout {
     }
     tab name="vibe" focus=true {
         pane split_direction="vertical" {
-            pane size="60%" name="nvim" close_on_exit=true {
+            pane size="60%" name="nvim" {
                 command "zsh"
-                args "-i" "-c" "nvim; exec zsh -i"
+                args "-c" "nvim; exec zsh -i"
             }
             pane size="40%" split_direction="horizontal" {
                 pane size="70%" name="claude" {
-                    command "claude"
+                    command "zsh"
+                    args "-c" "claude; exec zsh -i"
                 }
                 pane size="30%" name="shell"
             }
