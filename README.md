@@ -1,5 +1,5 @@
 <h1 align="center">dots</h1>
-<h6 align="center"><i>my rice gallery + configs :3 </i></h6>
+<h6 align="center"><i>rice gallery + dots</i></h6>
 
 <p align="center">⋆｡˚ ✦ ˚｡⋆</p>
 
