@@ -41,14 +41,6 @@
       "rev": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
       "src": "https://github.com/iamcco/markdown-preview.nvim"
     },
-    "mason-lspconfig.nvim": {
-      "rev": "0c2823e0418f3d9230ff8b201c976e84de1cb401",
-      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
-    },
-    "mason.nvim": {
-      "rev": "12ddd182d9efbdc848b540f16484a583d52da0fb",
-      "src": "https://github.com/mason-org/mason.nvim"
-    },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
       "src": "https://github.com/windwp/nvim-autopairs"

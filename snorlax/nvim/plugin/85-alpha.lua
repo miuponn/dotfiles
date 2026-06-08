@@ -2,7 +2,9 @@ vim.pack.add({
 	{ src = "https://github.com/goolord/alpha-nvim" },
 })
 
-if vim.fn.argc() > 0 then return end
+if vim.fn.argc() > 0 then
+	return
+end
 
 math.randomseed(os.time())
 local p = require("grove.palette")
@@ -11,7 +13,9 @@ local dashboard = require("alpha.themes.dashboard")
 local fortune = require("alpha.fortune")
 
 local accents = { p.base08, p.base09, p.base0A, p.base0B, p.base0C, p.base0D, p.base0E }
-local function randomize_hl(group) vim.api.nvim_set_hl(0, group, { fg = accents[math.random(#accents)] }) end
+local function randomize_hl(group)
+	vim.api.nvim_set_hl(0, group, { fg = accents[math.random(#accents)] })
+end
 
 dashboard.section.header.val = {
 	"                                                     ",
@@ -67,5 +71,7 @@ vim.api.nvim_set_hl(0, "AlphaFooter", { fg = p.base0D, italic = true })
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "alpha",
-	callback = function() vim.opt_local.foldenable = false end,
+	callback = function()
+		vim.opt_local.foldenable = false
+	end,
 })
