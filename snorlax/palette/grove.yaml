@@ -1,0 +1,177 @@
+# Grove — living palette source of truth (annotated)
+# Single source that all tools (kitty, OMP, neovim, btop, sketchybar, etc)
+# derive their themes from via the generator (Phase 4).
+#
+# Companion: canonical base16 YAMLs live in ~/base16-grove-scheme/ (published
+# repo) — grove.yaml (dark, this file's hexes), grove-light.yaml, grove-mist.yaml,
+# grove-nocturne.yaml. This SOT adds phase markers / status tags / consumer
+# annotations the repo version deliberately omits.
+#
+# Phase markers indicate when each slot is ACTIVELY consumed:
+#   [P1] = currently consumed in Phase 1 tools (kitty, OMP, fastfetch)
+#   [P2] = queued for Phase 2 (sketchybar, jankyborders, aerospace-adjacent)
+#   [P3] = queued for Phase 3 (neovim, lazygit, lazydocker, zen browser)
+#   [P4] = generator, widgets, custom builds
+#   [-]  = reserved, no active consumer yet
+#
+# Status tags:
+#   (C) committed — hex is final, do not change without cascading
+#   (T) tentative — may tune during live testing
+#
+# Consumers column tracks which tools currently use each slot.
+#
+# v2 STRUCTURE NOTE (2026-05-08):
+# Migrated from flat base00-base0F to structured surface + per-accent families.
+# Existing consumers continue to work via base16_compat aliases below — every
+# hex value preserved exactly, no design-philosophy changes. Pure organizational
+# shuffle to allow future expansion (bright/dim/bg variants per accent, when
+# consumers need them). See ~/miu-brain/projects/macos-rice/grove-extended-proposal.md
+# for the full migration plan.
+
+name: grove
+system: extended
+version: 2
+
+# ============================================================
+# DARK MODE (current, default)
+# ============================================================
+dark:
+  # === Surfaces (monochrome ramp, cool-teal family) ===
+  surface:
+    darkest:      "#13242a"  # was base00 — [P1] (C)  darkest bg — kitty, omp pill-bg, fastfetch, nvim bg
+    dark:         "#1b2f34"  # was base01 — [P1] (C)  lighter bg — kitty inactive tab, omp optional pill-bg variant
+    elevated:     "#263d42"  # was base02 — [P1] (C)  selection bg — kitty selection, omp pill-fg, nvim visual
+    muted:        "#5a7880"  # was base03 — [P1] (C)  muted — kitty bright-black, omp comments, nvim comments
+    dim:          "#8098a0"  # was base04 — [P1] (C)  dark fg — designed, cool-neutral
+    fg:           "#e4ebe4"  # was base05 — [P1] (C)  default fg — kitty fg, omp text, nvim fg (warm cream)
+    fg_bright:    "#eef4ec"  # was base06 — [P2] (T)  light fg — reserved for emphasis/light-surface roles
+    fg_lightest:  "#f6faf4"  # was base07 — [P2] (T)  lightest — reserved for bright-fg role, light-mode bg
+    hover:        "#2a3f46"  # was extras.hover_bg — sketchybar hover bg — darker than base02 selection
+
+  # === Spectrum (8 accent families) ===
+  pink:
+    base: "#e878a8"   # was base08 — [P1] (C)  HERO / red slot — sakura-rose, diff deletions, errors, active state
+
+  orange:
+    base: "#e89878"   # was base09 — [P1] (C)  orange — peach, numbers, constants
+
+  yellow:
+    base: "#e8c888"   # was base0A — [P1] (C)  yellow — cream-gold, types, warnings
+
+  green:
+    base: "#78b098"   # was base0B — [P1] (C)  green — mint-sage, strings, additions
+
+  teal:
+    base: "#58b0b8"   # was base0C — [P1] (C)  cyan — saturated teal, secondary accent, labels, links
+    dim:  "#4a8c92"   # was extras.teal_dim — sketchybar GROVE_TEAL_DIM, yazi active tab — between base03 muted and base0C teal
+
+  blue:
+    base:   "#5090b0" # was base0D — [P1] (C)  blue — mid-blue water tones, functions
+    dim:    "#5e8d9e" # was extras.blue_dim — yazi inactive tab — cooler shade between base03 and base0D
+    bright: "#6ba8c7" # was extras.blue_bright — yazi status bar — brighter than base0D water-blue
+
+  lavender:
+    base: "#a890c0"   # was base0E — [P1] (C)  purple — dusty lavender, keywords, modifiers
+    dim:  "#8b7d9e"   # was extras.lavender_dim — yazi mode indicators — desaturated base0E
+
+  olive:
+    base: "#78786a"   # was base0F — [P3] (T)  brown — olive bridge, deprecated, rare
+
+  lime:
+    base: "#91b846"   # off-base16 — [P2] (C)  vibrant chartreuse — zellij grove.kdl: ribbon_selected.bg, frame_highlight.base, table_cell_unselected.emphasis_0, list_selected.emphasis_1, text_unselected.emphasis_0/1
+    # variants reserved: bright / dim / bg — hand-tune as consumers need them
+
+  # === Off-spectrum (kept for tool fidelity, not part of the 8-accent system) ===
+  periwinkle: "#7887ba"  # was extras.periwinkle — yazi media/creative file types (46 occurrences) — bluer base0E variant
+
+# ============================================================
+# BACKWARD COMPAT: base16-style aliases for tools still consuming base00-base0F
+# ============================================================
+# Existing consumers (current base16-nvim setup, kitty 16-color palette mapping,
+# spicetify color.ini base00-07 entries, etc.) keep working unchanged via these
+# aliases. Each maps to the same hex it had in v1 — no hex changes anywhere.
+base16_compat:
+  base00: surface.darkest
+  base01: surface.dark
+  base02: surface.elevated
+  base03: surface.muted
+  base04: surface.dim
+  base05: surface.fg
+  base06: surface.fg_bright
+  base07: surface.fg_lightest
+  base08: pink.base
+  base09: orange.base
+  base0A: yellow.base
+  base0B: green.base
+  base0C: teal.base
+  base0D: blue.base
+  base0E: lavender.base
+  base0F: olive.base
+
+# ============================================================
+# OTHER VARIANTS (not annotated here — canonical hexes live in the repo)
+# ============================================================
+# Full palette family published at ~/base16-grove-scheme/:
+#   - grove-light.yaml     (warm cream base, Solarized-inspired daytime)
+#   - grove-mist.yaml      (cool-pale alt to light, bright environments)
+#   - grove-nocturne.yaml  (high-contrast night variant)
+#
+# Personal config currently uses dark only. When a variant gets activated
+# for live consumption, copy its hexes here as another top-level block (light:,
+# mist:, nocturne:) with the same shape as dark: above.
+
+# ============================================================
+# SEMANTIC ALIASES (optional, for tools that prefer named refs)
+# These resolve through base16_compat → structured tokens above.
+# ============================================================
+aliases:
+  bg: base00              # → surface.darkest
+  bg_alt: base01          # → surface.dark
+  selection: base02       # → surface.elevated
+  muted: base03           # → surface.muted
+  fg_dim: base04          # → surface.dim
+  fg: base05              # → surface.fg
+  fg_bright: base06       # → surface.fg_bright
+  fg_lightest: base07     # → surface.fg_lightest
+
+  hero: base08            # → pink.base
+  peach: base09           # → orange.base
+  gold: base0A            # → yellow.base
+  mint: base0B            # → green.base
+  teal: base0C            # → teal.base
+  blue: base0D            # → blue.base
+  lavender: base0E        # → lavender.base
+  olive: base0F           # → olive.base
+
+# ============================================================
+# EXTRAS (formerly off-palette hexes, now absorbed into spectrum families above)
+# ============================================================
+# In v1, this section held 6 off-palette hexes used in current configs.
+# In v2, these have been absorbed into the structured spectrum:
+#   hover_bg     → surface.hover
+#   teal_dim     → teal.dim
+#   blue_dim     → blue.dim
+#   blue_bright  → blue.bright
+#   lavender_dim → lavender.dim
+#   periwinkle   → periwinkle (kept off-spectrum — see Off-spectrum section above)
+#
+# No new variants populated yet. When a consumer needs e.g. pink.bright or
+# green.bg, hand-tune the hex and add to the appropriate spectrum family.
+
+# ============================================================
+# DESIGN NOTES (reference — do not rely on programmatically)
+# ============================================================
+# Three-family structure:
+#   Cool family (6):  base00, base01, base02, base0B, base0C, base0D
+#   Warm secondary (3): base09, base0A, base0F
+#   Hero + purple (2):  base08, base0E
+#
+# HERO (base08 sakura-rose) appears surgically:
+#   - Active state (tab, border, URL, bell)
+#   - Errors, diff deletions, git rename, diverged branch
+#   - NOT on cursor, NOT on ambient borders, NOT on body text
+#
+# Secondary accent (base0C saturated teal) appears on:
+#   - Labels (fastfetch, btop, sketchybar module labels)
+#   - Operators (syntax highlighting)
+#   - Link color
