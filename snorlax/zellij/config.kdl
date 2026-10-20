@@ -11,20 +11,35 @@ theme "grove"
 
 keybinds {
     unbind "Ctrl o"
+    unbind "Ctrl h"
+    unbind "Ctrl n"
+    unbind "Ctrl p"
+    unbind "Ctrl s"
+    unbind "Ctrl t"
+    unbind "Ctrl b"
+    unbind "Ctrl q"
 
     shared_except "locked" {
-        bind "Alt Shift h" { GoToPreviousTab; }
-        bind "Alt Shift l" { GoToNextTab; }
 
-        bind "Alt Shift 1" { GoToTab 1; }
-        bind "Alt Shift 2" { GoToTab 2; }
-        bind "Alt Shift 3" { GoToTab 3; }
-        bind "Alt Shift 4" { GoToTab 4; }
-        bind "Alt Shift 5" { GoToTab 5; }
-        bind "Alt Shift 6" { GoToTab 6; }
-        bind "Alt Shift 7" { GoToTab 7; }
-        bind "Alt Shift 8" { GoToTab 8; }
-        bind "Alt Shift 9" { GoToTab 9; }
+        bind "Ctrl Alt p" { SwitchToMode "Pane"; }
+        bind "Ctrl Alt t" { SwitchToMode "Tab"; }
+        bind "Ctrl Alt r" { SwitchToMode "Resize"; }
+        bind "Ctrl Alt s" { SwitchToMode "Scroll"; }
+        bind "Ctrl Alt m" { SwitchToMode "Move"; }
+        bind "Ctrl Alt q" { Quit; }
+
+        bind "Ctrl Alt h" { GoToPreviousTab; }
+        bind "Ctrl Alt l" { GoToNextTab; }
+
+        bind "Ctrl Alt 1" { GoToTab 1; }
+        bind "Ctrl Alt 2" { GoToTab 2; }
+        bind "Ctrl Alt 3" { GoToTab 3; }
+        bind "Ctrl Alt 4" { GoToTab 4; }
+        bind "Ctrl Alt 5" { GoToTab 5; }
+        bind "Ctrl Alt 6" { GoToTab 6; }
+        bind "Ctrl Alt 7" { GoToTab 7; }
+        bind "Ctrl Alt 8" { GoToTab 8; }
+        bind "Ctrl Alt 9" { GoToTab 9; }
 
         bind "Alt o" { SwitchToMode "Session"; }
     }
