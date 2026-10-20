@@ -88,4 +88,5 @@ vim.lsp.enable({
 	"rust_analyzer",
 	"gopls",
 	"texlab",
+	"clangd",
 })
