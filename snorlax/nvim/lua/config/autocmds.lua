@@ -62,3 +62,30 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.opt_local.formatoptions:remove({ "c", "r", "o" })
 	end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("indent_two_space", { clear = true }),
+	pattern = {
+		"nix",
+		"yaml",
+		"json",
+		"jsonc",
+		"toml",
+		"markdown",
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
+		"html",
+		"css",
+		"scss",
+		"vue",
+		"svelte",
+		"astro",
+	},
+	callback = function()
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.tabstop = 2
+		vim.opt_local.softtabstop = 2
+	end,
+})
