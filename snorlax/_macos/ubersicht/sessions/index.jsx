@@ -1,10 +1,10 @@
-// sessions panel (v1.2): zellij sessions, attached / detached / exited.
+// sessions panel (v1.3): zellij sessions, attached / detached / exited.
 // click a live row: focus its kitty window, or attach if none. exited row: resurrect.
 // ✳ badge: a claude session running in that zellij session.
 // toggle: hyper+z (aerospace). backend: sessions.sh
 // drag the header, double-click it or hit the corner badge to fold into a chip, corner grip to resize.
 import { run, css } from "uebersicht";
-import { Frame, frameDefaults, frameReduce, frameInit } from "./lib/frame.jsx";
+import { Frame, frameDefaults, frameReduce, frameInit, GROVE, GROVE_SURFACE } from "./lib/frame.jsx";
 
 const SH = "$HOME/dotfiles/snorlax/_macos/ubersicht/sessions/sessions.sh";
 const NAME = /^[A-Za-z0-9._-]+$/;
@@ -12,7 +12,7 @@ const NAME = /^[A-Za-z0-9._-]+$/;
 export const command = `${SH} list`;
 export const refreshFrequency = 30000;
 
-// grove glass, raised to 0.6 so list text holds contrast over light wallpapers
+// glass is the shared sketchybar preset (GROVE_SURFACE in the kit). no per-widget glass.
 const FRAME = {
   prefs: "$HOME/.config/sessions-panel/frame.json",
   origin: { left: 48, top: 80 },
@@ -20,9 +20,7 @@ const FRAME = {
   mode: "zoom",
   glyph: "\uf489", // nf-oct-terminal
   title: "sessions",
-  surface: {
-    bg: "rgba(19,36,42,0.6)", blur: 15, border: "1px solid rgba(255,255,255,0.2)", radius: 20, fg: "#e4ebe4",
-  },
+  surface: GROVE_SURFACE,
 };
 
 export const initialState = { output: "", showExited: false, confirm: null, frame: frameDefaults(FRAME) };
@@ -48,11 +46,10 @@ const act = (dispatch, verb, name) => {
 
 // grove
 const c = {
-  hover: "rgba(228,235,228,0.08)",
+  hover: GROVE.hover, // ITEM_HOVER_BG
   fg: "#e4ebe4", dim: "#8098a0", muted: "#5a7880", teal: "#58b0b8", rose: "#e878a8",
   lavender: "#a890c0",
-  // secondary text: fg at 70%. stays >= 3.4:1 over light wallpapers at glass 0.6
-  sec: "rgba(228,235,228,0.7)",
+  sec: GROVE.fgSoft, // GROVE_FG_SOFT
 };
 
 export const className = css`
@@ -64,14 +61,14 @@ export const className = css`
 const panel = css`width: 280px; padding: 14px 10px; color: ${c.fg};`;
 const head = css`
   display: flex; justify-content: space-between; align-items: baseline;
-  padding: 0 10px 8px; font-size: 12px; letter-spacing: .08em; color: ${c.sec};
+  padding: 0 10px 8px; font-size: 12px; font-weight: 600; letter-spacing: .08em; color: ${c.sec};
 `;
 const rowBase = `
   display: flex; align-items: center; gap: 10px; padding: 7px 10px;
   border-radius: 12px; cursor: pointer; user-select: none;
 `;
 const row = css`
-  ${rowBase} font-size: 13px;
+  ${rowBase} font-size: 13px; font-weight: 600; /* sketchybar labels are semibold/bold: weight carries legibility on 0.25 glass */
   &:hover { background: ${c.hover}; }
 `;
 const section = css`

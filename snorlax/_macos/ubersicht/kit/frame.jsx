@@ -1,4 +1,4 @@
-// widget frame v1.1: drag, collapse to an icon chip, locked-ratio resize, position memory.
+// widget frame v1.2: drag, collapse to an icon chip, locked-ratio resize, position memory.
 // source of truth: ~/dotfiles/snorlax/_macos/ubersicht/kit/frame.jsx
 // vendored into each widget's lib/ by kit/sync.sh. edit the source, then sync. never edit a copy.
 // spec: ~/miu-brain/projects/widget-frame/widget-frame.md
@@ -31,6 +31,30 @@ const reducedMotion = () => {
   try { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (_) { return false; }
 };
 const ms = (n) => (reducedMotion() ? 0 : n);
+
+// ---- grove glass ------------------------------------------------------------
+// the one glass every widget uses, copied from sketchybar so the bar and the desktop
+// read as one system. source: ~/dotfiles/snorlax/_macos/sketchybar/{colors.sh,sketchybarrc}
+//   BAR_BG 0x4013242a, blur_radius 15, corner_radius 20, border_width 0,
+//   shadow 0x40000000 down 3px, WORKSPACE_BORDER 0x33ffffff, ITEM_HOVER_BG 0x332a3f46,
+//   GROVE_FG 0xffe4ebe4, GROVE_FG_SOFT 0xcce4ebe4.
+// change a value here and in colors.sh together.
+export const GROVE = {
+  bg: "rgba(19, 36, 42, 0.25)", // BAR_BG
+  blur: 15,
+  radius: 20,
+  shadow: "0 3px 10px rgba(0, 0, 0, 0.25)", // shadow.color 0x40000000, distance 3, angle 90
+  border: "1px solid rgba(255, 255, 255, 0.2)", // WORKSPACE_BORDER, chip only
+  hover: "rgba(42, 63, 70, 0.2)", // ITEM_HOVER_BG
+  fg: "#e4ebe4", // GROVE_FG
+  fgSoft: "rgba(228, 235, 228, 0.8)", // GROVE_FG_SOFT
+};
+// surface preset for FRAME.surface. the panel has no border, like the bar.
+// the 36px chip gets the workspace border so it stays findable on a bright wallpaper.
+export const GROVE_SURFACE = {
+  bg: GROVE.bg, blur: GROVE.blur, radius: GROVE.radius, shadow: GROVE.shadow, fg: GROVE.fg,
+  chipBorder: GROVE.border,
+};
 
 // ---- state ------------------------------------------------------------------
 
@@ -146,7 +170,10 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
 
   // ---- collapse / expand: fade out, swap, morph the surface, fade in ----
 
-  const radiusAt = (v) => (v === "chip" ? CHIP_RADIUS : (s.radius || 0) * (live.current.scale / cfg.scale.default));
+  // radius stays at the bar's 20px at any scale, so every widget's corners match sketchybar.
+  // surface.scaleRadius: true opts back into radius growing with the widget.
+  const radiusAt = (v) =>
+    v === "chip" ? CHIP_RADIUS : (s.radius || 0) * (s.scaleRadius ? live.current.scale / cfg.scale.default : 1);
 
   const toggle = () => {
     if (busy.current || !surfRef.current) return;
