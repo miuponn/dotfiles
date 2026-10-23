@@ -92,6 +92,7 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
 
   const [view, setView] = useState(f.collapsed ? "chip" : "full");
   const [resizing, setResizing] = useState(false);
+  const [folding, setFolding] = useState(false);
 
   useEffect(() => {
     if (!busy.current) setView(f.collapsed ? "chip" : "full");
@@ -124,6 +125,7 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
   const toggle = () => {
     if (busy.current || !surfRef.current) return;
     busy.current = true;
+    setFolding(true);
     const toChip = view === "full";
     const leaving = toChip ? bodyRef.current : chipRef.current;
     const swap = () => {
@@ -154,6 +156,8 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
       { duration: d, easing: EASE }
     );
     if (entering) {
+
+      entering.getAnimations().forEach((a) => a.cancel());
       entering.animate([{ opacity: 0 }, { opacity: 1 }], {
         duration: ms(MS.fadeIn),
         delay: d * (toChip ? 0.45 : 0.6),
@@ -164,6 +168,7 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
     const done = () => {
       el.style.overflow = "";
       busy.current = false;
+      setFolding(false);
       commit({ collapsed: toChip });
       if (!toChip) keepOnScreen();
     };
@@ -288,16 +293,17 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
       <style>{CSS}</style>
       <div ref={surfRef} className="wf-surface" style={surfaceStyle}>
         {view === "full" ? (
-          <div ref={bodyRef} style={cfg.mode === "zoom" ? { zoom: f.scale } : undefined}>
+
+          <div key="body" ref={bodyRef} style={cfg.mode === "zoom" ? { zoom: f.scale } : undefined}>
             {children}
           </div>
         ) : (
-          <div ref={chipRef} className="wf-chip" style={{ color: fg }} title={cfg.title} onMouseDown={(e) => startDrag(e, toggle)}>
+          <div key="chip" ref={chipRef} className="wf-chip" style={{ color: fg }} title={cfg.title} onMouseDown={(e) => startDrag(e, toggle)}>
             {cfg.glyph}
           </div>
         )}
       </div>
-      {view === "full" && [
+      {view === "full" && !folding && [
         <div key="fold" className="wf-ctl wf-fold" style={badgeStyle} title="collapse" onMouseDown={stop} onClick={toggle}>
           −
         </div>,
