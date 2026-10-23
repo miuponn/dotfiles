@@ -1,4 +1,6 @@
-// sessions panel: live + exited zellij sessions. click to attach, x to delete exited.
+// sessions panel (v1.1): zellij sessions, attached / detached / exited.
+// click a live row: focus its kitty window, or attach if none. exited row: resurrect.
+// ✳ badge: a claude session running in that zellij session.
 // toggle: hyper+z (aerospace). backend: sessions.sh
 import { run, css } from "uebersicht";
 
@@ -29,6 +31,7 @@ const act = (dispatch, verb, name) => {
 const c = {
   glass: "rgba(19,36,42,0.25)", border: "rgba(255,255,255,0.2)", hover: "rgba(42,63,70,0.35)",
   fg: "#e4ebe4", dim: "#8098a0", muted: "#5a7880", teal: "#58b0b8", rose: "#e878a8",
+  lavender: "#a890c0",
 };
 
 export const className = css`
@@ -46,59 +49,79 @@ const head = css`
   display: flex; justify-content: space-between; align-items: baseline;
   padding: 0 10px 8px; font-size: 12px; letter-spacing: .08em; color: ${c.dim};
 `;
-const row = css`
+const rowBase = `
   display: flex; align-items: center; gap: 10px; padding: 7px 10px;
-  border-radius: 12px; font-size: 13px; cursor: pointer; user-select: none;
+  border-radius: 12px; cursor: pointer; user-select: none;
+`;
+const row = css`
+  ${rowBase} font-size: 13px;
   &:hover { background: ${c.hover}; }
 `;
-const dot = (on) => css`
-  width: 7px; height: 7px; border-radius: 50%; flex: none;
-  background: ${on ? c.teal : "transparent"}; border: 1px solid ${on ? c.teal : c.muted};
+const section = css`
+  ${rowBase} margin-top: 6px; font-size: 11px; color: ${c.dim}; letter-spacing: .06em;
+  &:hover { background: ${c.hover}; }
 `;
-const label = css`flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;`;
-const age = css`font-size: 11px; color: ${c.muted};`;
+// attached: filled teal. detached: teal ring. exited: muted ring.
+const dot = (state) => css`
+  width: 7px; height: 7px; border-radius: 50%; flex: none;
+  background: ${state === "attached" ? c.teal : "transparent"};
+  border: 1px solid ${state === "exited" ? c.muted : c.teal};
+`;
+const label = css`flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;`;
+const badge = css`
+  flex: none; max-width: 96px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: 11px; color: ${c.lavender};
+`;
+const age = css`flex: none; font-size: 11px; color: ${c.muted};`;
 const del = (armed) => css`
-  font-size: 11px; padding: 1px 6px; border-radius: 8px;
+  flex: none; font-size: 11px; padding: 1px 6px; border-radius: 8px;
   color: ${armed ? c.fg : c.muted}; background: ${armed ? c.rose : "transparent"};
   &:hover { color: ${c.fg}; }
 `;
-const section = css`
-  ${row}; margin-top: 6px; font-size: 11px; color: ${c.dim}; letter-spacing: .06em;
-`;
 
-const Row = ({ s, live, confirm, dispatch }) => (
-  <div className={row} onClick={() => act(dispatch, "attach", s.name)}>
-    <span className={dot(live)} />
-    <span className={label} style={{ color: live ? c.fg : c.dim }}>{s.name}</span>
-    <span className={age}>{s.age}</span>
-    {!live && (
-      <span
-        className={del(confirm === s.name)}
-        onClick={(e) => {
-          e.stopPropagation();
-          confirm === s.name ? act(dispatch, "delete", s.name)
-                             : dispatch({ type: "CONFIRM", name: s.name });
-        }}
-      >{confirm === s.name ? "delete?" : "×"}</span>
-    )}
-  </div>
-);
+const Row = ({ s, confirm, dispatch }) => {
+  const exited = s.state === "exited";
+  const armed = confirm === s.name;
+  return (
+    <div className={row} onClick={() => act(dispatch, exited ? "attach" : "focus", s.name)}>
+      <span className={dot(s.state)} />
+      <span className={label} style={{ color: exited ? c.dim : c.fg }}>{s.name}</span>
+      {s.claude && s.claude.length > 0 && (
+        <span className={badge} title={s.claude.join(", ")}>✳ {s.claude[0]}{s.claude.length > 1 ? ` +${s.claude.length - 1}` : ""}</span>
+      )}
+      <span className={age}>{s.age}</span>
+      {exited && (
+        <span
+          className={del(armed)}
+          onClick={(e) => {
+            e.stopPropagation();
+            armed ? act(dispatch, "delete", s.name) : dispatch({ type: "CONFIRM", name: s.name });
+          }}
+        >{armed ? "delete?" : "×"}</span>
+      )}
+    </div>
+  );
+};
 
 export const render = ({ output, error, showExited, confirm }, dispatch) => {
   let data = { live: [], exited: [] };
   try { if (output) data = JSON.parse(output); } catch (_) {}
+  const attachedN = data.live.filter((s) => s.state === "attached").length;
   return (
     <div className={panel} onMouseLeave={() => confirm && dispatch({ type: "CONFIRM", name: null })}>
-      <div className={head}><span>sessions</span><span>{data.live.length} live</span></div>
-      {error && <div className={row} style={{ color: c.rose }}>{String(error).slice(0, 80)}</div>}
-      {data.live.map((s) => <Row key={s.name} s={s} live confirm={confirm} dispatch={dispatch} />)}
+      <div className={head}>
+        <span>sessions</span>
+        <span>{data.live.length} live · {attachedN} open</span>
+      </div>
+      {error && <div className={row} style={{ color: c.rose, cursor: "default" }}>{String(error).slice(0, 80)}</div>}
+      {data.live.map((s) => <Row key={s.name} s={s} confirm={confirm} dispatch={dispatch} />)}
       {data.live.length === 0 && <div className={row} style={{ color: c.muted, cursor: "default" }}>no live sessions</div>}
       {data.exited.length > 0 && (
         <div className={section} onClick={() => dispatch({ type: "TOGGLE_EXITED" })}>
           {showExited ? "▾" : "▸"} exited ({data.exited.length})
         </div>
       )}
-      {showExited && data.exited.map((s) => <Row key={s.name} s={s} live={false} confirm={confirm} dispatch={dispatch} />)}
+      {showExited && data.exited.map((s) => <Row key={s.name} s={s} confirm={confirm} dispatch={dispatch} />)}
     </div>
   );
 };
