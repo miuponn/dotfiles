@@ -105,10 +105,8 @@ cmd-alt-ctrl-shift-s = 'exec-and-forget open -a "System Settings"'
 
 cmd-alt-ctrl-shift-y = 'exec-and-forget /opt/homebrew/bin/kitty -e /bin/zsh -lc yazi'
 cmd-alt-ctrl-shift-g = 'exec-and-forget /opt/homebrew/bin/kitty -e /bin/zsh -lc lazygit'
+cmd-alt-ctrl-shift-z = 'exec-and-forget osascript -e "tell application id \"tracesOf.Uebersicht\" to set hidden of widget id \"sessions-index-jsx\" to not (hidden of widget id \"sessions-index-jsx\")"'
 
-cmd-alt-ctrl-shift-v = 'exec-and-forget /opt/homebrew/bin/kitty -e /bin/zsh -lc "zellij attach vibe 2>/dev/null || zellij -l vibe -s vibe"'
-cmd-alt-ctrl-shift-c = 'exec-and-forget /opt/homebrew/bin/kitty -e /bin/zsh -lc "zellij attach code 2>/dev/null || zellij -l code -s code"'
-cmd-alt-ctrl-shift-r = 'exec-and-forget /opt/homebrew/bin/kitty -e /bin/zsh -lc "zellij attach dash 2>/dev/null || zellij -l dash -s dash"'
 
 alt-semicolon = 'mode service'
 
