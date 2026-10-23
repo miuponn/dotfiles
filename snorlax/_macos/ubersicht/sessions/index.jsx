@@ -1,4 +1,5 @@
 import { run, css } from "uebersicht";
+import { Frame, frameDefaults, frameReduce, frameInit } from "./lib/frame.jsx";
 
 const SH = "$HOME/dotfiles/snorlax/_macos/ubersicht/sessions/sessions.sh";
 const NAME = /^[A-Za-z0-9._-]+$/;
@@ -6,9 +7,25 @@ const NAME = /^[A-Za-z0-9._-]+$/;
 export const command = `${SH} list`;
 export const refreshFrequency = 30000;
 
-export const initialState = { output: "", showExited: false, confirm: null };
+const FRAME = {
+  prefs: "$HOME/.config/sessions-panel/frame.json",
+  origin: { left: 48, top: 80 },
+  scale: { min: 0.8, max: 1.6, step: 0.1, default: 1 },
+  mode: "zoom",
+  glyph: "\uf489",
+  title: "sessions",
+  surface: {
+    bg: "rgba(19,36,42,0.6)", blur: 15, border: "1px solid rgba(255,255,255,0.2)", radius: 20, fg: "#e4ebe4",
+  },
+};
+
+export const initialState = { output: "", showExited: false, confirm: null, frame: frameDefaults(FRAME) };
+
+export const init = (dispatch) => frameInit(FRAME, dispatch);
 
 export const updateState = (e, prev) => {
+  const framed = frameReduce(FRAME, e, prev);
+  if (framed) return framed;
   switch (e.type) {
     case "UB/COMMAND_RAN": return { ...prev, output: e.output, error: e.error };
     case "TOGGLE_EXITED":  return { ...prev, showExited: !prev.showExited, confirm: null };
@@ -23,7 +40,7 @@ const act = (dispatch, verb, name) => {
 };
 
 const c = {
-  glass: "rgba(19,36,42,0.6)", border: "rgba(255,255,255,0.2)", hover: "rgba(42,63,70,0.35)",
+  hover: "rgba(228,235,228,0.08)",
   fg: "#e4ebe4", dim: "#8098a0", muted: "#5a7880", teal: "#58b0b8", rose: "#e878a8",
   lavender: "#a890c0",
 
@@ -32,15 +49,10 @@ const c = {
 
 export const className = css`
   position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;
-  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+  font-family: "JetBrainsMono Nerd Font", "JetBrainsMono NF", "JetBrains Mono", monospace;
 `;
 
-const panel = css`
-  pointer-events: auto; position: absolute; left: 48px; top: 80px; width: 280px;
-  padding: 14px 10px; border-radius: 20px; color: ${c.fg};
-  background: ${c.glass}; border: 1px solid ${c.border};
-  -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);
-`;
+const panel = css`width: 280px; padding: 14px 10px; color: ${c.fg};`;
 const head = css`
   display: flex; justify-content: space-between; align-items: baseline;
   padding: 0 10px 8px; font-size: 12px; letter-spacing: .08em; color: ${c.sec};
@@ -99,13 +111,14 @@ const Row = ({ s, confirm, dispatch }) => {
   );
 };
 
-export const render = ({ output, error, showExited, confirm }, dispatch) => {
+export const render = ({ output, error, showExited, confirm, frame }, dispatch) => {
   let data = { live: [], exited: [] };
   try { if (output) data = JSON.parse(output); } catch (_) {}
   const attachedN = data.live.filter((s) => s.state === "attached").length;
   return (
+    <Frame cfg={FRAME} frame={frame} dispatch={dispatch}>
     <div className={panel} onMouseLeave={() => confirm && dispatch({ type: "CONFIRM", name: null })}>
-      <div className={head}>
+      <div className={head} data-frame-handle title="drag to move, double-click to fold">
         <span>sessions</span>
         <span>{data.live.length} live · {attachedN} open</span>
       </div>
@@ -119,5 +132,6 @@ export const render = ({ output, error, showExited, confirm }, dispatch) => {
       )}
       {showExited && data.exited.map((s) => <Row key={s.name} s={s} confirm={confirm} dispatch={dispatch} />)}
     </div>
+    </Frame>
   );
 };
