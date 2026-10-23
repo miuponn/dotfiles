@@ -29,9 +29,11 @@ const act = (dispatch, verb, name) => {
 
 // grove
 const c = {
-  glass: "rgba(19,36,42,0.25)", border: "rgba(255,255,255,0.2)", hover: "rgba(42,63,70,0.35)",
+  glass: "rgba(19,36,42,0.6)", border: "rgba(255,255,255,0.2)", hover: "rgba(42,63,70,0.35)",
   fg: "#e4ebe4", dim: "#8098a0", muted: "#5a7880", teal: "#58b0b8", rose: "#e878a8",
   lavender: "#a890c0",
+  // secondary text: fg at 70%. stays >= 3.4:1 over light wallpapers at glass 0.6
+  sec: "rgba(228,235,228,0.7)",
 };
 
 export const className = css`
@@ -47,7 +49,7 @@ const panel = css`
 `;
 const head = css`
   display: flex; justify-content: space-between; align-items: baseline;
-  padding: 0 10px 8px; font-size: 12px; letter-spacing: .08em; color: ${c.dim};
+  padding: 0 10px 8px; font-size: 12px; letter-spacing: .08em; color: ${c.sec};
 `;
 const rowBase = `
   display: flex; align-items: center; gap: 10px; padding: 7px 10px;
@@ -58,24 +60,24 @@ const row = css`
   &:hover { background: ${c.hover}; }
 `;
 const section = css`
-  ${rowBase} margin-top: 6px; font-size: 11px; color: ${c.dim}; letter-spacing: .06em;
+  ${rowBase} margin-top: 6px; font-size: 11px; color: ${c.sec}; letter-spacing: .06em;
   &:hover { background: ${c.hover}; }
 `;
-// attached: filled teal. detached: teal ring. exited: muted ring.
+// attached: filled teal. detached: teal ring. exited: secondary ring.
 const dot = (state) => css`
   width: 7px; height: 7px; border-radius: 50%; flex: none;
   background: ${state === "attached" ? c.teal : "transparent"};
-  border: 1px solid ${state === "exited" ? c.muted : c.teal};
+  border: 1px solid ${state === "exited" ? c.sec : c.teal};
 `;
 const label = css`flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;`;
 const badge = css`
   flex: none; max-width: 96px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  font-size: 11px; color: ${c.lavender};
+  font-size: 11px; color: ${c.sec};
 `;
-const age = css`flex: none; font-size: 11px; color: ${c.muted};`;
+const age = css`flex: none; font-size: 11px; color: ${c.sec};`;
 const del = (armed) => css`
   flex: none; font-size: 11px; padding: 1px 6px; border-radius: 8px;
-  color: ${armed ? c.fg : c.muted}; background: ${armed ? c.rose : "transparent"};
+  color: ${armed ? c.fg : c.sec}; background: ${armed ? c.rose : "transparent"};
   &:hover { color: ${c.fg}; }
 `;
 
@@ -85,9 +87,9 @@ const Row = ({ s, confirm, dispatch }) => {
   return (
     <div className={row} onClick={() => act(dispatch, exited ? "attach" : "focus", s.name)}>
       <span className={dot(s.state)} />
-      <span className={label} style={{ color: exited ? c.dim : c.fg }}>{s.name}</span>
+      <span className={label} style={{ color: exited ? c.sec : c.fg }}>{s.name}</span>
       {s.claude && s.claude.length > 0 && (
-        <span className={badge} title={s.claude.join(", ")}>✳ {s.claude[0]}{s.claude.length > 1 ? ` +${s.claude.length - 1}` : ""}</span>
+        <span className={badge} title={s.claude.join(", ")}><span style={{ color: c.lavender }}>✳</span> {s.claude[0]}{s.claude.length > 1 ? ` +${s.claude.length - 1}` : ""}</span>
       )}
       <span className={age}>{s.age}</span>
       {exited && (
@@ -115,7 +117,7 @@ export const render = ({ output, error, showExited, confirm }, dispatch) => {
       </div>
       {error && <div className={row} style={{ color: c.rose, cursor: "default" }}>{String(error).slice(0, 80)}</div>}
       {data.live.map((s) => <Row key={s.name} s={s} confirm={confirm} dispatch={dispatch} />)}
-      {data.live.length === 0 && <div className={row} style={{ color: c.muted, cursor: "default" }}>no live sessions</div>}
+      {data.live.length === 0 && <div className={row} style={{ color: c.sec, cursor: "default" }}>no live sessions</div>}
       {data.exited.length > 0 && (
         <div className={section} onClick={() => dispatch({ type: "TOGGLE_EXITED" })}>
           {showExited ? "▾" : "▸"} exited ({data.exited.length})
