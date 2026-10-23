@@ -1,5 +1,5 @@
 import { run, css } from "uebersicht";
-import { Frame, frameDefaults, frameReduce, frameInit } from "./lib/frame.jsx";
+import { Frame, frameDefaults, frameReduce, frameInit, GROVE, GROVE_SURFACE } from "./lib/frame.jsx";
 
 const SH = "$HOME/dotfiles/snorlax/_macos/ubersicht/sessions/sessions.sh";
 const NAME = /^[A-Za-z0-9._-]+$/;
@@ -14,9 +14,7 @@ const FRAME = {
   mode: "zoom",
   glyph: "\uf489",
   title: "sessions",
-  surface: {
-    bg: "rgba(19,36,42,0.6)", blur: 15, border: "1px solid rgba(255,255,255,0.2)", radius: 20, fg: "#e4ebe4",
-  },
+  surface: GROVE_SURFACE,
 };
 
 export const initialState = { output: "", showExited: false, confirm: null, frame: frameDefaults(FRAME) };
@@ -40,11 +38,10 @@ const act = (dispatch, verb, name) => {
 };
 
 const c = {
-  hover: "rgba(228,235,228,0.08)",
+  hover: GROVE.hover,
   fg: "#e4ebe4", dim: "#8098a0", muted: "#5a7880", teal: "#58b0b8", rose: "#e878a8",
   lavender: "#a890c0",
-
-  sec: "rgba(228,235,228,0.7)",
+  sec: GROVE.fgSoft,
 };
 
 export const className = css`
@@ -55,14 +52,14 @@ export const className = css`
 const panel = css`width: 280px; padding: 14px 10px; color: ${c.fg};`;
 const head = css`
   display: flex; justify-content: space-between; align-items: baseline;
-  padding: 0 10px 8px; font-size: 12px; letter-spacing: .08em; color: ${c.sec};
+  padding: 0 10px 8px; font-size: 12px; font-weight: 600; letter-spacing: .08em; color: ${c.sec};
 `;
 const rowBase = `
   display: flex; align-items: center; gap: 10px; padding: 7px 10px;
   border-radius: 12px; cursor: pointer; user-select: none;
 `;
 const row = css`
-  ${rowBase} font-size: 13px;
+  ${rowBase} font-size: 13px; font-weight: 600;
   &:hover { background: ${c.hover}; }
 `;
 const section = css`

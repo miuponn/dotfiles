@@ -18,6 +18,22 @@ const reducedMotion = () => {
 };
 const ms = (n) => (reducedMotion() ? 0 : n);
 
+export const GROVE = {
+  bg: "rgba(19, 36, 42, 0.25)",
+  blur: 15,
+  radius: 20,
+  shadow: "0 3px 10px rgba(0, 0, 0, 0.25)",
+  border: "1px solid rgba(255, 255, 255, 0.2)",
+  hover: "rgba(42, 63, 70, 0.2)",
+  fg: "#e4ebe4",
+  fgSoft: "rgba(228, 235, 228, 0.8)",
+};
+
+export const GROVE_SURFACE = {
+  bg: GROVE.bg, blur: GROVE.blur, radius: GROVE.radius, shadow: GROVE.shadow, fg: GROVE.fg,
+  chipBorder: GROVE.border,
+};
+
 export const frameDefaults = (cfg) => ({ x: 0, y: 0, scale: cfg.scale.default, collapsed: false, loaded: false });
 
 export const frameReduce = (cfg, e, prev) => {
@@ -120,7 +136,8 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
     if (f.loaded) keepOnScreen();
   }, [f.loaded]);
 
-  const radiusAt = (v) => (v === "chip" ? CHIP_RADIUS : (s.radius || 0) * (live.current.scale / cfg.scale.default));
+  const radiusAt = (v) =>
+    v === "chip" ? CHIP_RADIUS : (s.radius || 0) * (s.scaleRadius ? live.current.scale / cfg.scale.default : 1);
 
   const toggle = () => {
     if (busy.current || !surfRef.current) return;
