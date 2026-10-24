@@ -79,6 +79,12 @@ local function apply_grove_overrides()
 	vim.api.nvim_set_hl(0, "PmenuSbar", { bg = p.base02 })
 	vim.api.nvim_set_hl(0, "PmenuThumb", { bg = p.teal_dim })
 
+	-- search (orange = match, same as TelescopeMatching / PmenuMatch)
+	vim.api.nvim_set_hl(0, "Search", { bg = p.orange_bg })
+	vim.api.nvim_set_hl(0, "CurSearch", { fg = p.base01, bg = p.base09, bold = true })
+	vim.api.nvim_set_hl(0, "IncSearch", { fg = p.base01, bg = p.base09, bold = true })
+	vim.api.nvim_set_hl(0, "Substitute", { fg = p.base01, bg = p.base09 })
+
 	-- diagnostics
 	vim.api.nvim_set_hl(0, "DiagnosticError", { fg = p.base08 })
 	vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = p.base0A })

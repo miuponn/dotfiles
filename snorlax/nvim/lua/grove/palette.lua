@@ -5,4 +5,5 @@ return {
 	base0C = "#58b0b8", base0D = "#5090b0", base0E = "#a890c0", base0F = "#78786a",
 	teal_dim = "#4a8c92", teal_bright = "#6ec5cd",
 	lime = "#91b846", lime_bright = "#9bc73b", periwinkle = "#7887ba",
+	orange_bg = "#3a2820",
 }

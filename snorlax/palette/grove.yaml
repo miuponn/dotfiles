@@ -54,6 +54,7 @@ dark:
 
   orange:
     base: "#e89878"   # was base09 — [P1] (C)  orange — peach, numbers, constants
+    bg:   "#3a2820"   # [P3] (T)  search match bg, nvim Search; orange = match (TelescopeMatching, PmenuMatch)
 
   yellow:
     base: "#e8c888"   # was base0A — [P1] (C)  yellow — cream-gold, types, warnings
