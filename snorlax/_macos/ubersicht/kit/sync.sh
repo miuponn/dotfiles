@@ -9,6 +9,7 @@ SRC="$KIT/frame.jsx"
 CONSUMERS=(
   "$KIT/../sessions"
   "$HOME/repos/pond-widget"
+  "$HOME/repos/pokedoro"
 )
 
 sum() { md5 -q "$1" 2>/dev/null || md5sum "$1" | cut -d' ' -f1; }
