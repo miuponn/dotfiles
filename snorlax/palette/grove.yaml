@@ -2,7 +2,7 @@
 # Single source that all tools (kitty, OMP, neovim, btop, sketchybar, etc)
 # derive their themes from via the generator (Phase 4).
 #
-# Companion: canonical base16 YAMLs live in ~/base16-grove-scheme/ (published
+# Companion: canonical base16 YAMLs live in ~/repos/base16-grove-scheme/ (published
 # repo) — grove.yaml (dark, this file's hexes), grove-light.yaml, grove-mist.yaml,
 # grove-nocturne.yaml. This SOT adds phase markers / status tags / consumer
 # annotations the repo version deliberately omits.
@@ -25,12 +25,20 @@
 # Existing consumers continue to work via base16_compat aliases below — every
 # hex value preserved exactly, no design-philosophy changes. Pure organizational
 # shuffle to allow future expansion (bright/dim/bg variants per accent, when
-# consumers need them). See ~/miu-brain/projects/macos-rice/grove-extended-proposal.md
+# consumers need them). See ~/miu-brain/projects/grove/grove-extended-proposal.md
 # for the full migration plan.
+#
+# v3 NOTE (2026-10-24):
+# The Zed theme family (~/.config/zed/themes/grove.json, 4 variants, every UI +
+# syntax role) is now the most complete expression of Grove. This file mirrors
+# it: dark gained the extended slots the Zed theme uses (base/line surfaces,
+# bright/dim/bg per accent, lime + periwinkle families), and nocturne / light /
+# mist blocks were added below in the same shape. Role rules live in DESIGN NOTES.
+# Hand-off doc: ~/miu-brain/projects/grove/grove-zed-mockups.md
 
 name: grove
 system: extended
-version: 2
+version: 3
 
 # ============================================================
 # DARK MODE (current, default)
@@ -46,44 +54,70 @@ dark:
     fg:           "#e4ebe4"  # was base05 — [P1] (C)  default fg — kitty fg, omp text, nvim fg (warm cream)
     fg_bright:    "#eef4ec"  # was base06 — [P2] (T)  light fg — reserved for emphasis/light-surface roles
     fg_lightest:  "#f6faf4"  # was base07 — [P2] (T)  lightest — reserved for bright-fg role, light-mode bg
-    hover:        "#2a3f46"  # was extras.hover_bg — sketchybar hover bg — darker than base02 selection
+    hover:        "#21363b"  # (C) 2026-10-24: element.hover in Zed. Was #2a3f46 (too close to selection); sketchybar ITEM_HOVER_BG still uses the old hex
+    base:         "#091519"  # [P4] (C) chrome: Zed background, title bar, status bar
+    panel:        "#0d1a1f"  # [P4] (C) Zed panel / tab bar / inactive tab (proposal surface.sidebar)
+    line:         "#17292f"  # [P4] (C) Zed editor.active_line
+    # NOTE: surface.elevated (#263d42) is the SELECTION colour. Zed's elevated_surface (popups) = surface.dark (#1b2f34).
 
   # === Spectrum (8 accent families) ===
   pink:
     base: "#e878a8"   # was base08 — [P1] (C)  HERO / red slot — sakura-rose, diff deletions, errors (NOT active state, 2026-10-24)
+    bright: "#f08cb8" # kitty color9, Zed bright_red / player cursor
+    dim:    "#b06080" # Zed terminal dim_red
+    bg:     "#3d1b2a" # Zed error / deleted background (solid on dark: warm tints go grey as alpha)
 
   orange:
     base: "#e89878"   # was base09 — [P1] (C)  orange — peach, numbers, constants
+    bright: "#f0a888" # Zed constant / variant syntax, player cursor
     bg:   "#3a2820"   # [P3] (T)  search match bg, nvim Search; orange = match (TelescopeMatching, PmenuMatch)
 
   yellow:
     base: "#e8c888"   # was base0A — [P1] (C)  yellow — cream-gold, types, warnings
+    bright: "#f0d498" # kitty color11, Zed string.regex
+    dim:    "#b09d6a" # Zed attribute syntax, terminal dim_yellow
+    bg:     "#3d3320" # Zed warning / modified / write-highlight background
 
   green:
     base: "#78b098"   # was base0B — [P1] (C)  green — mint-sage, strings, additions
+    bright: "#88c0a8" # kitty color10, Zed string.special
+    dim:    "#5a8068" # Zed terminal dim_green
+    bg:     "#78b09826" # Zed created bg, conflict_marker.ours (translucent: cool tints keep hue)
 
   teal:
     base: "#58b0b8"   # was base0C — [P1] (C)  cyan — saturated teal, secondary accent, labels, links
     dim:  "#4a8c92"   # was extras.teal_dim — sketchybar GROVE_TEAL_DIM, yazi active tab — between base03 muted and base0C teal
+    bright: "#6ec5cd" # nvim CursorLineNr/PmenuKind, kitty color14, jankyborders glow, Zed constructor/title/you-cursor
+    bg:     "#58b0b81f" # Zed read highlight, info bg (translucent)
 
   blue:
     base:   "#5090b0" # was base0D — [P1] (C)  blue — mid-blue water tones, functions
     dim:    "#5e8d9e" # was extras.blue_dim — yazi inactive tab — cooler shade between base03 and base0D
-    bright: "#6ba8c7" # was extras.blue_bright — yazi status bar — brighter than base0D water-blue
+    bright: "#6ba8c7" # was extras.blue_bright — yazi status bar — brighter than base0D water-blue; Zed property syntax, kitty color12
+    bg:     "#5090b01a" # Zed conflict_marker.theirs (translucent)
 
   lavender:
     base: "#a890c0"   # was base0E — [P1] (C)  purple — dusty lavender, keywords, modifiers
     dim:  "#8b7d9e"   # was extras.lavender_dim — yazi mode indicators — desaturated base0E
+    dim_syntax: "#8b7d93" # Kelly's nudge for Zed label / hint syntax
+    bright: "#b8a0d0" # kitty color13
+    bg:     "#2d2735" # Zed hint background
 
   olive:
     base: "#78786a"   # was base0F — [P3] (T)  brown — olive bridge, deprecated, rare
 
   lime:
     base: "#91b846"   # off-base16 — [P2] (C)  vibrant chartreuse — sparing neon pop, never active state — zellij grove.kdl: frame_highlight.base, table_cell_unselected.emphasis_0, list_selected.emphasis_1, text_unselected.emphasis_0/1
-    # variants reserved: bright / dim / bg — hand-tune as consumers need them
+    bright: "#9bc73b" # was palette.lua lime_bright; Zed player background
+    dim:    "#748f46" # extended dim tier
+    special: "#9ab846" # Kelly's nudge for Zed punctuation.special (interpolation)
+    # Zed: success = lime, string.escape = lime, success bg #91b84626
 
   # === Off-spectrum (kept for tool fidelity, not part of the 8-accent system) ===
-  periwinkle: "#7887ba"  # was extras.periwinkle — yazi media/creative file types (46 occurrences) — bluer base0E variant
+  periwinkle:
+    base:   "#7887ba" # was extras.periwinkle — yazi media/creative file types, nvim devicons media; Zed preproc syntax. Already at the dim tier (L 0.63)
+    bright: "#a2b3e8" # Zed player cursor
+    dim:    "#5b6587" # fills only (2.8:1)
 
 # ============================================================
 # BACKWARD COMPAT: base16-style aliases for tools still consuming base00-base0F
@@ -110,16 +144,186 @@ base16_compat:
   base0F: olive.base
 
 # ============================================================
-# OTHER VARIANTS (not annotated here — canonical hexes live in the repo)
+# OTHER VARIANTS (v3, 2026-10-24, mirrored from the Zed theme family)
 # ============================================================
-# Full palette family published at ~/base16-grove-scheme/:
-#   - grove-light.yaml     (warm cream base, Solarized-inspired daytime)
-#   - grove-mist.yaml      (cool-pale alt to light, bright environments)
-#   - grove-nocturne.yaml  (high-contrast night variant)
-#
-# Personal config currently uses dark only. When a variant gets activated
-# for live consumption, copy its hexes here as another top-level block (light:,
-# mist:, nocturne:) with the same shape as dark: above.
+# Base16 YAMLs in ~/repos/base16-grove-scheme/ keep the 16-slot form (fills for
+# light/mist accents). These blocks carry the extended shape. On light / mist,
+# accents have a fill (base16 repo hex) and a darker `text` slot used for syntax
+# and terminal normal; `dim` on light = the fills.
+#   nocturne: high-contrast night, fg pulled to 14.9:1 to avoid halation
+#   light:    Snorlax-belly cream (wallpaper #fae8c1, hue 86), soft paper for reading
+#   mist:     Grove's own surface hue (215) in daylight, candy text accents, crisp
+
+nocturne:
+  surface:
+    base:         "#02080f"
+    panel:        "#040e14"
+    darkest:      "#08131a"
+    line:         "#0d181f"
+    dark:         "#0f1e26"
+    hover:        "#16262e"
+    elevated:     "#182e3a"
+    border:       "#182e3a"
+    border_variant: "#0f1e26"
+    muted:        "#4a6878"
+    dim:          "#88a0ac"
+    fg:           "#e2e6e0"
+    fg_bright:    "#ecf0ea"
+    fg_lightest:  "#f2f6f0"
+  pink:
+    base:   "#f068a8"
+    bright: "#ff7ebe"
+    dim:    "#b65b84"
+  yellow:
+    base:   "#e0b878"
+    bright: "#f7cf8e"
+    dim:    "#b3986e"
+  green:
+    base:   "#60c4a0"
+    bright: "#77dbb6"
+    dim:    "#5b9b83"
+  teal:
+    base:   "#3cc0d4"
+    bright: "#58d7eb"
+    dim:    "#3d8591"
+  blue:
+    base:   "#3898cc"
+    bright: "#51aee3"
+    dim:    "#397597"
+  lavender:
+    base:   "#b088d8"
+    bright: "#c69eef"
+    dim:    "#896ea4"
+  orange:
+    base:   "#e0886a"
+    bright: "#f89e7f"
+  lime:
+    base:   "#9ac643"
+    bright: "#b0dd5c"
+  periwinkle:
+    base:   "#8a96d4"
+    bright: "#9faceb"
+  bg:
+    error:        "#2b151e"
+    warning:      "#271a05"
+    info:         "#3cc0d41a"
+    hint:         "#22182c"
+    success:      "#9ac64338"
+    search_match: "#321b13"
+
+light:
+  surface:
+    base:         "#ded6c2"
+    panel:        "#e8e0cc"
+    darkest:      "#f2ebdc"
+    line:         "#ece5d6"
+    dark:         "#f9f5ee"
+    hover:        "#e8e1d2"
+    elevated:     "#d8cfba"
+    border:       "#c5bca7"
+    border_variant: "#d8cfba"
+    muted:        "#787667"
+    dim:          "#5a5c4c"
+    fg:           "#1a2a2e"
+    fg_bright:    "#0f1e22"
+    fg_lightest:  "#050f14"
+  pink:
+    text:   "#a73b6d"   # syntax / terminal normal
+    bright: "#a13567"
+    dim:    "#d06090"
+  yellow:
+    text:   "#87611d"   # syntax / terminal normal
+    bright: "#815b16"
+    dim:    "#b08848"
+  green:
+    text:   "#397758"   # syntax / terminal normal
+    bright: "#337253"
+    dim:    "#4a8868"
+  teal:
+    text:   "#27757d"   # syntax / terminal normal
+    bright: "#1f6f77"
+    dim:    "#3c8890"
+  blue:
+    text:   "#3f6f8f"   # syntax / terminal normal
+    bright: "#2f5f7f"
+    dim:    "#386888"
+  lavender:
+    text:   "#7159a1"   # syntax / terminal normal
+    bright: "#674f97"
+    dim:    "#7058a0"
+  orange:
+    text:   "#9d5128"
+    bright: "#974b22"
+  lime:
+    text:   "#537200"
+    bright: "#516f00"
+  periwinkle:
+    text:   "#536398"
+    bright: "#506095"
+  bg:
+    error:        "#d060901f"
+    warning:      "#b0884820"
+    info:         "#c1e2e6"
+    hint:         "#e4dcf9"
+    success:      "#dae7ca"
+    search_match: "#c070483e"
+
+mist:
+  surface:
+    base:         "#cdd9dc"
+    panel:        "#d7e3e6"
+    darkest:      "#e3ecef"
+    line:         "#dde6e9"
+    dark:         "#f1f5f6"
+    hover:        "#d9e2e5"
+    elevated:     "#c4d3d7"
+    border:       "#b1c0c4"
+    border_variant: "#c4d3d7"
+    muted:        "#5a747b"
+    dim:          "#465a5f"
+    fg:           "#172b30"
+    fg_bright:    "#0e1e23"
+    fg_lightest:  "#041013"
+  pink:
+    text:   "#b31d64"   # syntax / terminal normal
+    bright: "#91074e"
+    dim:    "#af3669"
+  yellow:
+    text:   "#875d08"   # syntax / terminal normal
+    bright: "#6b4804"
+    dim:    "#8e6000"
+  green:
+    text:   "#0b785a"   # syntax / terminal normal
+    bright: "#065e46"
+    dim:    "#007e5d"
+  teal:
+    text:   "#0a7287"   # syntax / terminal normal
+    bright: "#065a6a"
+    dim:    "#00778e"
+  blue:
+    text:   "#0a6d9f"   # syntax / terminal normal
+    bright: "#05567e"
+    dim:    "#0072a8"
+  lavender:
+    text:   "#773fc7"   # syntax / terminal normal
+    bright: "#6122ac"
+    dim:    "#784dbd"
+  orange:
+    text:   "#9d4d07"
+    bright: "#7c3b04"
+  lime:
+    text:   "#547208"
+    bright: "#415a04"
+  periwinkle:
+    text:   "#465bc0"
+    bright: "#3242a6"
+  bg:
+    error:        "#c0487817"
+    warning:      "#a0783822"
+    info:         "#c1e2e6"
+    hint:         "#e4dcf9"
+    success:      "#dbe7ca"
+    search_match: "#b0683833"
 
 # ============================================================
 # SEMANTIC ALIASES (optional, for tools that prefer named refs)
@@ -156,8 +360,8 @@ aliases:
 #   lavender_dim → lavender.dim
 #   periwinkle   → periwinkle (kept off-spectrum — see Off-spectrum section above)
 #
-# No new variants populated yet. When a consumer needs e.g. pink.bright or
-# green.bg, hand-tune the hex and add to the appropriate spectrum family.
+# v3: bright / dim / bg now populated where the Zed theme, kitty or nvim consume them.
+# Tier rule: dim ~ OKLCH L 0.60, base ~ 0.70-0.73, bright ~ 0.77 (dark variants).
 
 # ============================================================
 # DESIGN NOTES (reference — do not rely on programmatically)
@@ -180,4 +384,13 @@ aliases:
 #   - Link color
 #
 # Lime (off-base16) and lime_bright are sparing neon pops: small emphasis only, never
-# active state or large fills.
+# active state or large fills. Zed: success, string escapes, interpolation.
+#
+# Other roles (2026-10-24, Zed theme):
+#   - Orange = match: search (orange.bg), TelescopeMatching, PmenuMatch, nvim Search
+#   - Selection = surface.elevated everywhere (kitty, nvim Visual, Zed element.selected)
+#   - Pink in syntax only on variable.special (self / this / super)
+#   - Syntax: keyword lavender, function teal, string green, number orange, constant
+#     orange.bright, type yellow, operator teal.dim, property blue.bright, variable fg
+#   - Translucent vs solid: on dark, cool accent tints are alpha, warm tints solid
+#     (warm alpha over the teal base goes grey); flipped on light / mist
