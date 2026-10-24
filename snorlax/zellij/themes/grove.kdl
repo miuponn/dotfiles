@@ -38,11 +38,11 @@ themes {
         }
         ribbon_selected {
             base 27 47 52 //LOCKED dark
-            background 145 184 70 //LOCKED lime
-            emphasis_0 88 176 184 //LOCKED teal
+            background 88 176 184 //LOCKED teal (active = teal, was lime 2026-10-24)
+            emphasis_0 19 36 42 //LOCKED darkest (was teal, invisible on teal bg)
             emphasis_1 232 200 136 //LOCKED yellow
             emphasis_2 232 152 120 //LOCKED orange
-            emphasis_3 110 197 205 //LOCKED teal bright
+            emphasis_3 19 36 42 //LOCKED darkest (was teal bright, invisible on teal bg)
         }
         table_title {
             base 74 140 146 //LOCKED teal dim

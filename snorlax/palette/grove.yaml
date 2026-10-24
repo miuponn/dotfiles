@@ -50,7 +50,7 @@ dark:
 
   # === Spectrum (8 accent families) ===
   pink:
-    base: "#e878a8"   # was base08 — [P1] (C)  HERO / red slot — sakura-rose, diff deletions, errors, active state
+    base: "#e878a8"   # was base08 — [P1] (C)  HERO / red slot — sakura-rose, diff deletions, errors (NOT active state, 2026-10-24)
 
   orange:
     base: "#e89878"   # was base09 — [P1] (C)  orange — peach, numbers, constants
@@ -79,7 +79,7 @@ dark:
     base: "#78786a"   # was base0F — [P3] (T)  brown — olive bridge, deprecated, rare
 
   lime:
-    base: "#91b846"   # off-base16 — [P2] (C)  vibrant chartreuse — zellij grove.kdl: ribbon_selected.bg, frame_highlight.base, table_cell_unselected.emphasis_0, list_selected.emphasis_1, text_unselected.emphasis_0/1
+    base: "#91b846"   # off-base16 — [P2] (C)  vibrant chartreuse — sparing neon pop, never active state — zellij grove.kdl: frame_highlight.base, table_cell_unselected.emphasis_0, list_selected.emphasis_1, text_unselected.emphasis_0/1
     # variants reserved: bright / dim / bg — hand-tune as consumers need them
 
   # === Off-spectrum (kept for tool fidelity, not part of the 8-accent system) ===
@@ -168,11 +168,16 @@ aliases:
 #   Hero + purple (2):  base08, base0E
 #
 # HERO (base08 sakura-rose) appears surgically:
-#   - Active state (tab, border, URL, bell)
-#   - Errors, diff deletions, git rename, diverged branch
+#   - Errors, diff deletions, untracked, diverged branch
+#   - NOT active state (2026-10-24: pink was overused, active moved to teal)
 #   - NOT on cursor, NOT on ambient borders, NOT on body text
 #
 # Secondary accent (base0C saturated teal) appears on:
+#   - Active state: kitty active tab + border, zellij ribbon_selected, nvim TabLineSel,
+#     lualine normal, sketchybar focused workspace, jankyborders (teal.bright glow), lazygit active border
 #   - Labels (fastfetch, btop, sketchybar module labels)
 #   - Operators (syntax highlighting)
 #   - Link color
+#
+# Lime (off-base16) and lime_bright are sparing neon pops: small emphasis only, never
+# active state or large fills.
