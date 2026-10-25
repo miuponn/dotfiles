@@ -96,15 +96,15 @@ alt-tab = 'workspace-back-and-forth'
 
 alt-shift-f = 'layout floating tiling'
 
-cmd-alt-ctrl-shift-t = 'exec-and-forget /opt/homebrew/bin/kitty'
+cmd-alt-ctrl-shift-t = 'exec-and-forget open -na kitty'
 cmd-alt-ctrl-shift-b = 'exec-and-forget open -na "Google Chrome"'
 cmd-alt-ctrl-shift-d = 'exec-and-forget open -a "Discord"'
 cmd-alt-ctrl-shift-n = 'exec-and-forget open -a "Notes"'
 cmd-alt-ctrl-shift-f = 'exec-and-forget osascript -e "tell application \"Finder\"" -e "make new Finder window to home" -e "activate" -e "end tell"'
 cmd-alt-ctrl-shift-s = 'exec-and-forget open -a "System Settings"'
 
-cmd-alt-ctrl-shift-y = 'exec-and-forget /opt/homebrew/bin/kitty -e /bin/zsh -lc yazi'
-cmd-alt-ctrl-shift-g = 'exec-and-forget /opt/homebrew/bin/kitty -e /bin/zsh -lc lazygit'
+cmd-alt-ctrl-shift-y = 'exec-and-forget open -na kitty --args -e /bin/zsh -lc yazi'
+cmd-alt-ctrl-shift-g = 'exec-and-forget open -na kitty --args -e /bin/zsh -lc lazygit'
 cmd-alt-ctrl-shift-z = 'exec-and-forget osascript -e "tell application id \"tracesOf.Uebersicht\" to set hidden of widget id \"sessions-index-jsx\" to not (hidden of widget id \"sessions-index-jsx\")"'
 
 
