@@ -32,11 +32,11 @@ dashboard.section.header.opts.hl = "AlphaHeader"
 dashboard.section.buttons.val = {
 	dashboard.button("r", "󰦛  Restore session", "<cmd>lua require('persistence').load()<CR>"),
 	dashboard.button("R", "󱄍  Restore last session", "<cmd>lua require('persistence').load({ last = true })<CR>"),
-	dashboard.button("f", "  Find file", "<cmd>Telescope find_files<CR>"),
+	dashboard.button("f", "\u{F0349}  Find file", "<cmd>Telescope find_files<CR>"),
 	dashboard.button("o", "󰋚  Recent files", "<cmd>Telescope oldfiles<CR>"),
 	dashboard.button("g", "󰱼  Grep codebase", "<cmd>Telescope live_grep<CR>"),
 	dashboard.button("e", "󰈔  New buffer", "<cmd>ene<CR>"),
-	dashboard.button("c", "  Edit nvim config", "<cmd>e ~/.config/nvim<CR>"),
+	dashboard.button("c", "\u{F0493}  Edit nvim config", "<cmd>e ~/.config/nvim<CR>"),
 	dashboard.button("q", "󰗼  Quit", "<cmd>qa<CR>"),
 }
 dashboard.section.buttons.opts.hl = "AlphaButtons"
@@ -46,7 +46,7 @@ local fortune_section = { type = "text", val = fortune(), opts = { hl = "AlphaQu
 local v = vim.version()
 dashboard.section.footer.val = {
 	" .・。.・゜✭・.・✫・゜・。.",
-	string.format(" %d plugins · nvim v%d.%d.%d", #vim.pack.get(), v.major, v.minor, v.patch),
+	string.format(" %d plugins · nvim v%d.%d.%d", #vim.pack.get(nil, { info = false }), v.major, v.minor, v.patch),
 	"    . ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁.    ",
 }
 dashboard.section.footer.opts.hl = "AlphaFooter"
