@@ -86,6 +86,12 @@ const CSS = `
   border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
 }
 .wf-readout { right: 20px; bottom: 4px; font: 10px/1 ${FONT}; pointer-events: none; z-index: 2; }
+
+.wf-reveal > .wf-surface > :not(.wf-glass) { position: relative; z-index: 1; }
+.wf-glass { position: absolute; inset: 0; border-radius: inherit; box-sizing: border-box; pointer-events: none; z-index: 0;
+  background: var(--wf-bg); border: var(--wf-border); opacity: 0; transition: opacity 180ms linear; }
+.wf-reveal:hover .wf-glass, .wf-reveal.wf-active .wf-glass, .wf-glass.on {
+  opacity: 1; -webkit-backdrop-filter: var(--wf-blur); backdrop-filter: var(--wf-blur); box-shadow: var(--wf-shadow); }
 .wf-chip {
   width: ${CHIP}px; height: ${CHIP}px; display: flex; align-items: center; justify-content: center;
   font: 17px/1 ${FONT}; cursor: pointer; user-select: none;
@@ -214,6 +220,7 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
       if (!moved) {
         moved = true;
         document.body.style.cursor = "grabbing";
+        root.classList.add("wf-active");
       }
       nx = Math.round(clamp(start.x + dx, -baseLeft, window.innerWidth - rect.width - baseLeft));
       ny = Math.round(clamp(start.y + dy, -baseTop, window.innerHeight - rect.height - baseTop));
@@ -223,6 +230,7 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onUp);
       document.body.style.cursor = "";
+      root.classList.remove("wf-active");
       if (!moved) {
         if (onTap) onTap();
         return;
@@ -287,7 +295,8 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
   };
 
   const chip = view === "chip";
-  const surfaceStyle = {
+  const reveal = s.reveal === "hover";
+  const glassStyle = {
     background: (chip && s.chipBg) || s.bg,
     WebkitBackdropFilter: s.blur ? `blur(${s.blur}px)` : undefined,
     backdropFilter: s.blur ? `blur(${s.blur}px)` : undefined,
@@ -295,6 +304,8 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
     boxShadow: s.shadow,
     borderRadius: `${radiusAt(view)}px`,
   };
+
+  const surfaceStyle = reveal ? { borderRadius: glassStyle.borderRadius } : glassStyle;
   const ctlStyle = { color: fg };
   const badgeStyle = { ...ctlStyle, background: s.badgeBg || "rgba(19, 36, 42, 0.85)", border: s.border || "1px solid rgba(255, 255, 255, 0.2)" };
   const stop = (e) => e.stopPropagation();
@@ -302,13 +313,24 @@ export const Frame = ({ cfg, frame, dispatch, children }) => {
   return (
     <div
       ref={rootRef}
-      className="wf-root"
+      className={`wf-root${reveal ? " wf-reveal" : ""}${reveal && resizing ? " wf-active" : ""}`}
       style={{ left: cfg.origin.left + f.x, top: cfg.origin.top + f.y, opacity: f.loaded ? 1 : 0 }}
       onMouseDown={onRootDown}
       onDoubleClick={onRootDouble}
     >
       <style>{CSS}</style>
       <div ref={surfRef} className="wf-surface" style={surfaceStyle}>
+        {reveal && (
+          <div
+            className={`wf-glass${chip || folding ? " on" : ""}`}
+            style={{
+              "--wf-bg": glassStyle.background || "transparent",
+              "--wf-blur": s.blur ? `blur(${s.blur}px)` : "none",
+              "--wf-border": glassStyle.border || "0 solid transparent",
+              "--wf-shadow": glassStyle.boxShadow || "none",
+            }}
+          />
+        )}
         {view === "full" ? (
 
           <div key="body" ref={bodyRef} style={cfg.mode === "zoom" ? { zoom: f.scale } : undefined}>

@@ -6,6 +6,7 @@ CONSUMERS=(
   "$KIT/../sessions"
   "$HOME/repos/pond-widget"
   "$HOME/repos/pokedoro"
+  "$HOME/repos/launcher-widget"
 )
 
 sum() { md5 -q "$1" 2>/dev/null || md5sum "$1" | cut -d' ' -f1; }

@@ -1,0 +1,561 @@
+/* @settings
+
+name: Grove
+id: grove
+settings:
+    -
+        id: grove-dark-variant
+        title: Dark variant
+        description: used when obsidian is in dark mode
+        type: class-select
+        allowEmpty: false
+        default: grove-dark
+        options:
+            -
+                label: Grove
+                value: grove-dark
+            -
+                label: Grove Nocturne
+                value: grove-nocturne
+    -
+        id: grove-light-variant
+        title: Light variant
+        description: used when obsidian is in light mode
+        type: class-select
+        allowEmpty: false
+        default: grove-light
+        options:
+            -
+                label: Grove Light
+                value: grove-light
+            -
+                label: Grove Mist
+                value: grove-mist
+    -
+        id: grove-translucency
+        title: Translucency
+        description: only applies with Appearance > Translucent window on
+        type: heading
+        level: 2
+        collapsed: false
+    -
+        id: grove-chrome-opacity-dark
+        title: Chrome opacity (dark)
+        description: sidebars, ribbon, tab bar, status bar
+        type: variable-number-slider
+        default: 80
+        min: 30
+        max: 100
+        step: 2
+        format: '%'
+    -
+        id: grove-reading-opacity-dark
+        title: Note pane opacity (dark)
+        type: variable-number-slider
+        default: 90
+        min: 60
+        max: 100
+        step: 2
+        format: '%'
+    -
+        id: grove-chrome-opacity-light
+        title: Chrome opacity (light)
+        type: variable-number-slider
+        default: 82
+        min: 30
+        max: 100
+        step: 2
+        format: '%'
+    -
+        id: grove-reading-opacity-light
+        title: Note pane opacity (light)
+        type: variable-number-slider
+        default: 100
+        min: 60
+        max: 100
+        step: 2
+        format: '%'
+
+*/
+
+body.theme-dark {
+  --grove-base: #091519;
+  --grove-panel: #0d1a1f;
+  --grove-surface: #0d1a1f;
+  --grove-editor: #13242a;
+  --grove-elevated: #1b2f34;
+  --grove-line: #17292f;
+  --grove-element: #1b2f34;
+  --grove-hover: #21363b;
+  --grove-active: #263d42;
+  --grove-border: #263d42;
+  --grove-border-variant: #1b2f34;
+  --grove-border-focused: #4a8c92;
+  --grove-border-selected: #58b0b8;
+  --grove-text: #e4ebe4;
+  --grove-text-strong: #eef4ec;
+  --grove-muted: #8098a0;
+  --grove-faint: #5a7880;
+  --grove-disabled: #384b51;
+  --grove-teal: #58b0b8;
+  --grove-teal-hover: #6ec5cd;
+  --grove-teal-strong: #6ec5cd;
+  --grove-title: #6ec5cd;
+  --grove-selection: #6ec5cd28;
+  --grove-lavender: #a890c0;
+  --grove-yellow: #e8c888;
+  --grove-orange: #e89878;
+  --grove-peach: #f0a888;
+  --grove-sage: #78b098;
+  --grove-blue: #6ba8c7;
+  --grove-link-uri: #5090b0;
+  --grove-lime: #91b846;
+  --grove-lime-bright: #9bc73b;
+  --grove-pink: #e878a8;
+  --grove-attribute: #b09d6a;
+  --grove-operator: #4a8c92;
+  --grove-punctuation: #8098a0;
+  --grove-comment: #5a7880;
+  --grove-search-background: #3a2820;
+  --grove-pink-background: #3d1b2a;
+  --grove-yellow-background: #3d3320;
+  --grove-lavender-background: #2d2735;
+  --grove-scrollbar: #e4ebe41e;
+  --grove-scrollbar-hover: #e4ebe468;
+  --grove-pink-rgb: 232, 120, 168;
+  --grove-orange-rgb: 232, 152, 120;
+  --grove-yellow-rgb: 232, 200, 136;
+  --grove-sage-rgb: 120, 176, 152;
+  --grove-teal-rgb: 88, 176, 184;
+  --grove-blue-rgb: 107, 168, 199;
+  --grove-lavender-rgb: 168, 144, 192;
+  --grove-text-rgb: 228, 235, 228;
+}
+
+body.theme-dark.grove-nocturne {
+  --grove-base: #02080f;
+  --grove-panel: #040e14;
+  --grove-surface: #040e14;
+  --grove-editor: #08131a;
+  --grove-elevated: #0f1e26;
+  --grove-line: #0d181f;
+  --grove-element: #0f1e26;
+  --grove-hover: #16262e;
+  --grove-active: #182e3a;
+  --grove-border: #182e3a;
+  --grove-border-variant: #0f1e26;
+  --grove-border-focused: #3d8591;
+  --grove-border-selected: #3cc0d4;
+  --grove-text: #e2e6e0;
+  --grove-text-strong: #ecf0ea;
+  --grove-muted: #88a0ac;
+  --grove-faint: #4a6878;
+  --grove-disabled: #283b45;
+  --grove-teal: #3cc0d4;
+  --grove-teal-hover: #51d0e4;
+  --grove-teal-strong: #58d7eb;
+  --grove-title: #58d7eb;
+  --grove-selection: #58d7eb25;
+  --grove-lavender: #b088d8;
+  --grove-yellow: #e0b878;
+  --grove-orange: #e0886a;
+  --grove-peach: #f89e7f;
+  --grove-sage: #60c4a0;
+  --grove-blue: #51aee3;
+  --grove-link-uri: #3898cc;
+  --grove-lime: #9ac643;
+  --grove-lime-bright: #b0dd5c;
+  --grove-pink: #f068a8;
+  --grove-attribute: #b3986e;
+  --grove-operator: #3d8591;
+  --grove-punctuation: #88a0ac;
+  --grove-comment: #4a6878;
+  --grove-search-background: #321b13;
+  --grove-pink-background: #2b151e;
+  --grove-yellow-background: #271a05;
+  --grove-lavender-background: #22182c;
+  --grove-scrollbar: #e2e6e01d;
+  --grove-scrollbar-hover: #e2e6e05c;
+  --grove-pink-rgb: 240, 104, 168;
+  --grove-orange-rgb: 224, 136, 106;
+  --grove-yellow-rgb: 224, 184, 120;
+  --grove-sage-rgb: 96, 196, 160;
+  --grove-teal-rgb: 60, 192, 212;
+  --grove-blue-rgb: 81, 174, 227;
+  --grove-lavender-rgb: 176, 136, 216;
+  --grove-text-rgb: 226, 230, 224;
+}
+
+body.theme-light {
+  --grove-base: #ded6c2;
+  --grove-panel: #e8e0cc;
+  --grove-surface: #e8e0cc;
+  --grove-editor: #f2ebdc;
+  --grove-elevated: #f9f5ee;
+  --grove-line: #ece5d6;
+  --grove-element: #f9f5ee;
+  --grove-hover: #e8e1d2;
+  --grove-active: #d8cfba;
+  --grove-border: #c5bca7;
+  --grove-border-variant: #d8cfba;
+  --grove-border-focused: #3c8890;
+  --grove-border-selected: #3c8890;
+  --grove-text: #1a2a2e;
+  --grove-text-strong: #0f1e22;
+  --grove-muted: #5a5c4c;
+  --grove-faint: #787667;
+  --grove-disabled: #bab9ad;
+  --grove-teal: #27757d;
+  --grove-teal-hover: #27757d;
+  --grove-teal-strong: #1f6f77;
+  --grove-title: #005b63;
+  --grove-selection: #1f6f7731;
+  --grove-lavender: #7159a1;
+  --grove-yellow: #87611d;
+  --grove-orange: #9d5128;
+  --grove-peach: #813707;
+  --grove-sage: #397758;
+  --grove-blue: #245574;
+  --grove-link-uri: #3f6f8f;
+  --grove-lime: #537200;
+  --grove-lime-bright: #516f00;
+  --grove-pink: #a73b6d;
+  --grove-attribute: #8f6e3a;
+  --grove-operator: #428086;
+  --grove-punctuation: #5a5c4c;
+  --grove-comment: #787667;
+  --grove-search-background: #c070483e;
+  --grove-pink-background: #d060901f;
+  --grove-yellow-background: #b0884820;
+  --grove-lavender-background: #e4dcf9;
+  --grove-scrollbar: #1a2a2e3d;
+  --grove-scrollbar-hover: #1a2a2e82;
+  --grove-pink-rgb: 167, 59, 109;
+  --grove-orange-rgb: 157, 81, 40;
+  --grove-yellow-rgb: 135, 97, 29;
+  --grove-sage-rgb: 57, 119, 88;
+  --grove-teal-rgb: 39, 117, 125;
+  --grove-blue-rgb: 36, 85, 116;
+  --grove-lavender-rgb: 113, 89, 161;
+  --grove-text-rgb: 26, 42, 46;
+}
+
+body.theme-light.grove-mist {
+  --grove-base: #cdd9dc;
+  --grove-panel: #d7e3e6;
+  --grove-surface: #d7e3e6;
+  --grove-editor: #e3ecef;
+  --grove-elevated: #f1f5f6;
+  --grove-line: #dde6e9;
+  --grove-element: #f1f5f6;
+  --grove-hover: #d9e2e5;
+  --grove-active: #c4d3d7;
+  --grove-border: #b1c0c4;
+  --grove-border-variant: #c4d3d7;
+  --grove-border-focused: #2c788a;
+  --grove-border-selected: #2c788a;
+  --grove-text: #172b30;
+  --grove-text-strong: #0e1e23;
+  --grove-muted: #465a5f;
+  --grove-faint: #5a747b;
+  --grove-disabled: #a8bbc0;
+  --grove-teal: #0a7287;
+  --grove-teal-hover: #0a7287;
+  --grove-teal-strong: #065a6a;
+  --grove-title: #065a6a;
+  --grove-selection: #065a6a29;
+  --grove-lavender: #773fc7;
+  --grove-yellow: #875d08;
+  --grove-orange: #9d4d07;
+  --grove-peach: #7c3b04;
+  --grove-sage: #0b785a;
+  --grove-blue: #05567e;
+  --grove-link-uri: #0a6d9f;
+  --grove-lime: #547208;
+  --grove-lime-bright: #415a04;
+  --grove-pink: #b31d64;
+  --grove-attribute: #8e6000;
+  --grove-operator: #00778e;
+  --grove-punctuation: #465a5f;
+  --grove-comment: #5a747b;
+  --grove-search-background: #b0683833;
+  --grove-pink-background: #c0487817;
+  --grove-yellow-background: #a0783822;
+  --grove-lavender-background: #e4dcf9;
+  --grove-scrollbar: #172b303c;
+  --grove-scrollbar-hover: #172b3083;
+  --grove-pink-rgb: 179, 29, 100;
+  --grove-orange-rgb: 157, 77, 7;
+  --grove-yellow-rgb: 135, 93, 8;
+  --grove-sage-rgb: 11, 120, 90;
+  --grove-teal-rgb: 10, 114, 135;
+  --grove-blue-rgb: 5, 86, 126;
+  --grove-lavender-rgb: 119, 63, 199;
+  --grove-text-rgb: 23, 43, 48;
+}
+
+body.theme-dark, body.theme-light {
+  --color-base-00: var(--grove-editor);
+  --color-base-05: var(--grove-line);
+  --color-base-10: var(--grove-surface);
+  --color-base-20: var(--grove-panel);
+  --color-base-25: var(--grove-element);
+  --color-base-30: var(--grove-border);
+  --color-base-35: var(--grove-active);
+  --color-base-40: var(--grove-border-focused);
+  --color-base-50: var(--grove-faint);
+  --color-base-60: var(--grove-muted);
+  --color-base-70: var(--grove-muted);
+  --color-base-100: var(--grove-text);
+  --mono-rgb-100: var(--grove-text-rgb, 228, 235, 228);
+  --color-red: var(--grove-pink);
+  --color-orange: var(--grove-orange);
+  --color-yellow: var(--grove-yellow);
+  --color-green: var(--grove-sage);
+  --color-cyan: var(--grove-teal);
+  --color-blue: var(--grove-blue);
+  --color-purple: var(--grove-lavender);
+  --color-pink: var(--grove-pink);
+  --color-red-rgb: var(--grove-pink-rgb);
+  --color-orange-rgb: var(--grove-orange-rgb);
+  --color-yellow-rgb: var(--grove-yellow-rgb);
+  --color-green-rgb: var(--grove-sage-rgb);
+  --color-cyan-rgb: var(--grove-teal-rgb);
+  --color-blue-rgb: var(--grove-blue-rgb);
+  --color-purple-rgb: var(--grove-lavender-rgb);
+  --color-pink-rgb: var(--grove-pink-rgb);
+  --color-accent: var(--grove-teal);
+  --color-accent-1: var(--grove-teal);
+  --color-accent-2: var(--grove-teal-hover);
+  --interactive-accent: var(--grove-teal);
+  --interactive-accent-hover: var(--grove-teal-hover);
+  --text-on-accent: var(--grove-base);
+  --text-selection: var(--grove-selection);
+  --caret-color: var(--grove-teal-strong);
+  --background-primary: var(--grove-editor);
+  --background-primary-alt: var(--grove-line);
+  --background-secondary: var(--grove-panel);
+  --background-secondary-alt: var(--grove-base);
+  --background-modifier-border: var(--grove-border);
+  --background-modifier-border-hover: var(--grove-border-focused);
+  --background-modifier-border-focus: var(--grove-border-selected);
+  --background-modifier-form-field: var(--grove-base);
+  --background-modifier-error: var(--grove-pink);
+  --background-modifier-success: var(--grove-lime);
+  --interactive-normal: var(--grove-element);
+  --interactive-hover: var(--grove-active);
+  --divider-color: var(--grove-border-variant);
+  --titlebar-background: var(--grove-base);
+  --titlebar-background-focused: var(--grove-base);
+  --ribbon-background: var(--grove-base);
+  --ribbon-background-collapsed: var(--grove-base);
+  --status-bar-background: var(--grove-base);
+  --status-bar-border-color: var(--grove-border-variant);
+  --tab-container-background: var(--grove-panel);
+  --tab-background-active: var(--grove-editor);
+  --tab-text-color-focused-active: var(--grove-text);
+  --tab-text-color-focused-active-current: var(--grove-text);
+  --modal-background: var(--grove-editor);
+  --menu-background: var(--grove-elevated);
+  --prompt-background: var(--grove-elevated);
+  --suggestion-background: var(--grove-elevated);
+  --background-modifier-cover: color-mix(in srgb, var(--grove-base) 60%, transparent);
+  --text-normal: var(--grove-text);
+  --text-muted: var(--grove-muted);
+  --text-faint: var(--grove-faint);
+  --text-accent: var(--grove-teal);
+  --text-accent-hover: var(--grove-teal-hover);
+  --text-error: var(--grove-pink);
+  --text-warning: var(--grove-yellow);
+  --text-success: var(--grove-lime);
+  --icon-color: var(--grove-muted);
+  --icon-color-hover: var(--grove-text);
+  --icon-color-active: var(--grove-teal);
+  --icon-color-focused: var(--grove-text);
+  --nav-item-color-active: var(--grove-teal-strong);
+  --nav-item-color-selected: var(--grove-text);
+  --nav-collapse-icon-color: var(--grove-faint);
+  --indentation-guide-color: var(--grove-border-variant);
+  --indentation-guide-color-active: var(--grove-border);
+  --h1-color: var(--grove-title);
+  --h2-color: var(--grove-teal);
+  --h3-color: var(--grove-lavender);
+  --h4-color: var(--grove-yellow);
+  --h5-color: var(--grove-orange);
+  --h6-color: var(--grove-muted);
+  --h1-weight: 700;
+  --bold-color: var(--grove-text-strong);
+  --italic-color: var(--grove-text);
+  --link-color: var(--grove-teal);
+  --link-color-hover: var(--grove-teal-hover);
+  --link-external-color: var(--grove-link-uri);
+  --link-external-color-hover: var(--grove-blue);
+  --link-unresolved-color: var(--grove-faint);
+  --link-unresolved-opacity: 1;
+  --link-unresolved-decoration-style: dashed;
+  --link-unresolved-decoration-color: var(--grove-faint);
+  --tag-color: var(--grove-teal);
+  --tag-color-hover: var(--grove-teal-hover);
+  --blockquote-border-color: var(--grove-border-focused);
+  --hr-color: var(--grove-border);
+  --checkbox-color: var(--grove-teal);
+  --checkbox-color-hover: var(--grove-teal-hover);
+  --checkbox-border-color: var(--grove-faint);
+  --checkbox-border-color-hover: var(--grove-muted);
+  --checkbox-marker-color: var(--grove-base);
+  --checklist-done-color: var(--grove-faint);
+  --embed-border-start: 2px solid var(--grove-border-focused);
+  --table-border-color: var(--grove-border);
+  --metadata-border-color: var(--grove-border-variant);
+  --scrollbar-thumb-bg: var(--grove-scrollbar);
+  --scrollbar-active-thumb-bg: var(--grove-scrollbar-hover);
+  --code-background: var(--grove-panel);
+  --code-normal: var(--grove-text);
+  --code-comment: var(--grove-comment);
+  --code-function: var(--grove-teal);
+  --code-important: var(--grove-peach);
+  --code-keyword: var(--grove-lavender);
+  --code-operator: var(--grove-operator);
+  --code-property: var(--grove-blue);
+  --code-punctuation: var(--grove-punctuation);
+  --code-string: var(--grove-sage);
+  --code-tag: var(--grove-teal);
+  --code-value: var(--grove-orange);
+  --graph-node: var(--grove-muted);
+  --graph-node-focused: var(--grove-teal-strong);
+  --graph-node-tag: var(--grove-lavender);
+  --graph-node-attachment: var(--grove-yellow);
+  --graph-node-unresolved: var(--grove-faint);
+  --graph-line: var(--grove-border);
+  --graph-text: var(--grove-text);
+  --callout-default: var(--grove-teal);
+  --callout-info: var(--grove-teal);
+  --callout-todo: var(--grove-teal);
+  --callout-summary: var(--grove-blue);
+  --callout-tip: var(--grove-sage);
+  --callout-important: var(--grove-lavender);
+  --callout-success: var(--grove-lime);
+  --callout-question: var(--grove-yellow);
+  --callout-warning: var(--grove-yellow);
+  --callout-fail: var(--grove-pink);
+  --callout-error: var(--grove-pink);
+  --callout-bug: var(--grove-pink);
+  --callout-example: var(--grove-peach);
+  --callout-quote: var(--grove-muted);
+}
+
+body.theme-dark {
+  --tag-background: color-mix(in srgb, var(--grove-teal) 12%, transparent);
+  --tag-background-hover: color-mix(in srgb, var(--grove-teal) 20%, transparent);
+  --tag-border-color: color-mix(in srgb, var(--grove-teal) 18%, transparent);
+  --nav-item-background-active: color-mix(in srgb, var(--grove-teal) 14%, transparent);
+  --nav-item-background-selected: color-mix(in srgb, var(--grove-teal) 18%, transparent);
+  --nav-item-background-hover: color-mix(in srgb, var(--grove-text) 6%, transparent);
+  --background-modifier-hover: color-mix(in srgb, var(--grove-text) 6%, transparent);
+  --background-modifier-active-hover: color-mix(in srgb, var(--grove-teal) 14%, transparent);
+  --highlight-opacity: 26%;
+  --highlight-background-red: color-mix(in srgb, var(--grove-pink) var(--highlight-opacity), var(--grove-pink-background));
+  --highlight-background-orange: color-mix(in srgb, var(--grove-orange) var(--highlight-opacity), var(--grove-search-background));
+  --highlight-background-yellow: color-mix(in srgb, var(--grove-yellow) var(--highlight-opacity), var(--grove-yellow-background));
+  --highlight-background-green: color-mix(in srgb, var(--grove-sage) var(--highlight-opacity), transparent);
+  --highlight-background-blue: color-mix(in srgb, var(--grove-blue) var(--highlight-opacity), transparent);
+  --highlight-background-purple: color-mix(in srgb, var(--grove-lavender) var(--highlight-opacity), transparent);
+  --highlight-mix-blend-mode: normal;
+}
+
+body.theme-light {
+  --tag-background: color-mix(in srgb, var(--grove-teal) 12%, var(--grove-editor));
+  --tag-background-hover: color-mix(in srgb, var(--grove-teal) 20%, var(--grove-editor));
+  --tag-border-color: color-mix(in srgb, var(--grove-teal) 22%, var(--grove-editor));
+  --nav-item-background-active: color-mix(in srgb, var(--grove-teal) 14%, var(--grove-panel));
+  --nav-item-background-selected: color-mix(in srgb, var(--grove-teal) 18%, var(--grove-panel));
+  --nav-item-background-hover: var(--grove-hover);
+  --background-modifier-hover: color-mix(in srgb, var(--grove-text) 6%, transparent);
+  --background-modifier-active-hover: color-mix(in srgb, var(--grove-teal) 14%, var(--grove-panel));
+  --highlight-opacity: 24%;
+  --highlight-background-red: color-mix(in srgb, var(--grove-pink) var(--highlight-opacity), transparent);
+  --highlight-background-orange: color-mix(in srgb, var(--grove-orange) var(--highlight-opacity), transparent);
+  --highlight-background-yellow: color-mix(in srgb, var(--grove-yellow) var(--highlight-opacity), transparent);
+  --highlight-background-green: color-mix(in srgb, var(--grove-sage) var(--highlight-opacity), var(--grove-editor));
+  --highlight-background-blue: color-mix(in srgb, var(--grove-blue) var(--highlight-opacity), var(--grove-editor));
+  --highlight-background-purple: color-mix(in srgb, var(--grove-lavender) var(--highlight-opacity), var(--grove-editor));
+  --highlight-mix-blend-mode: normal;
+}
+
+body.theme-dark {
+  --grove-chrome-alpha: var(--grove-chrome-opacity-dark, 80%);
+  --grove-reading-alpha: var(--grove-reading-opacity-dark, 90%);
+}
+
+body.theme-light {
+  --grove-chrome-alpha: var(--grove-chrome-opacity-light, 82%);
+  --grove-reading-alpha: var(--grove-reading-opacity-light, 100%);
+}
+
+body.is-translucent:not(.is-fullscreen) {
+  --workspace-background-translucent: color-mix(in srgb, var(--grove-base) var(--grove-chrome-alpha), transparent);
+  --grove-reading-background: color-mix(in srgb, var(--grove-editor) var(--grove-reading-alpha), transparent);
+  --status-bar-background: transparent;
+  --tab-container-background: transparent;
+  --tab-background-active: var(--grove-reading-background);
+  --titlebar-background: transparent;
+  --titlebar-background-focused: transparent;
+}
+
+body.is-translucent:not(.is-fullscreen) .workspace-split.mod-root .view-content,
+body.is-translucent:not(.is-fullscreen) .workspace-split.mod-root .view-header {
+  background-color: var(--grove-reading-background);
+}
+
+.workspace-leaf.mod-active .view-header {
+  box-shadow: inset 0 -2px 0 var(--grove-teal);
+}
+
+.cm-s-obsidian span.cm-highlight.obsidian-search-match-highlight,
+.cm-s-obsidian span.obsidian-search-match-highlight {
+  background-color: var(--grove-search-background);
+}
+
+.cm-s-obsidian span.obsidian-search-match-highlight {
+  box-shadow: 0 0 0 2px var(--grove-orange);
+  mix-blend-mode: normal;
+}
+
+.search-result-file-matched-text {
+  background-color: var(--grove-search-background);
+  color: var(--grove-text);
+  box-shadow: inset 0 -1px 0 var(--grove-orange);
+}
+
+.markdown-rendered .search-highlight > div {
+  box-shadow: 0 0 0 2px var(--grove-orange);
+  opacity: 0.8;
+  mix-blend-mode: normal;
+}
+
+body.theme-dark .callout:is([data-callout="warning"], [data-callout="caution"], [data-callout="attention"],
+  [data-callout="question"], [data-callout="help"], [data-callout="faq"]) {
+  background-color: var(--grove-yellow-background);
+}
+
+body.theme-dark .callout:is([data-callout="danger"], [data-callout="error"], [data-callout="bug"],
+  [data-callout="failure"], [data-callout="fail"], [data-callout="missing"]) {
+  background-color: var(--grove-pink-background);
+}
+
+body.theme-dark .callout[data-callout="example"] {
+  background-color: var(--grove-search-background);
+}
+
+.token.comment,
+.cm-s-obsidian span.cm-comment,
+.token.attr-name {
+  font-style: italic;
+}
+
+.token.attr-name { color: var(--grove-attribute); }
+
+.markdown-rendered .internal-link.is-unresolved,
+.cm-s-obsidian .is-unresolved .cm-underline {
+  text-decoration-style: dashed;
+}
