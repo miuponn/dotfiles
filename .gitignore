@@ -1,1 +1,4 @@
 *.bak*
+
+# local-only commit hook, see snorlax/git/hooks/README.md
+snorlax/git/hooks/commit-msg
